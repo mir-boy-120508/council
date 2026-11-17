@@ -1,52 +1,47 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fbfbfd">
-  <meta name="description" content="橘中学校が正式に確認・承認した校内生活のきまりを掲載します。">
-  <title>校内のきまり — 橘中学校 生徒会公式プラットフォーム</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校内のきまり | 橘中学校 生徒会公式プラットフォーム</title>
   <link rel="stylesheet" href="css/site.css">
 </head>
-<body data-page="school-rules">
+<body>
   <header id="site-header"></header>
 
   <main>
     <div class="container">
-      <nav class="breadcrumb" aria-label="現在位置">
-        <ol>
-          <li><a href="index.html">ホーム</a></li>
-          <li aria-current="page">校内のきまり</li>
-        </ol>
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol><li><a href="index.html">ホーム</a></li><li>校内のきまり</li></ol>
       </nav>
+      <div class="page-header">
+        <span class="eyebrow">現行規定・承認済みルール</span>
+        <h1>校内のきまり</h1>
+        <p class="page-lead">生徒会と学校の協議・教職員の正式承認を経て確定した現行の校内規定のみを掲載しています。未承認の改定案は表示されません。</p>
+      </div>
     </div>
 
-    <section class="page-header">
+    <section class="band-tight">
       <div class="container">
-        <p class="page-header-eyebrow">学校承認済み公式ガイド</p>
-        <h1>校内のきまり</h1>
-        <p class="page-header-lead">学校が正式に確認・承認した最新の校内ルールを掲載します。未承認の情報や古い規定は掲載しません。</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="toolbar">
-          <div style="font-size:0.875rem; color:var(--text-secondary);">
-            ※ルールの改定は教職員による確認・承認を経て反映されます。
+        <div class="filter-bar">
+          <div class="tab-list" id="rule-tabs" role="tablist" aria-label="分野別絞り込み">
+            <button type="button" class="tab-btn active" data-rcat="all">すべて</button>
+            <button type="button" class="tab-btn" data-rcat="服装・身だしなみ">服装・身だしなみ</button>
+            <button type="button" class="tab-btn" data-rcat="持ち物・情報機器">持ち物・情報機器</button>
+            <button type="button" class="tab-btn" data-rcat="校内生活・安全">校内生活・安全</button>
           </div>
-          <div class="search-box">
-            <input type="search" id="rules-search" class="search-input" placeholder="ルールを検索（例：登校、端末）" aria-label="校内のきまり検索">
+          <div class="search-controls">
+            <input type="search" id="rule-search" class="minimal-input" placeholder="条文を検索" aria-label="校内のきまりを検索">
           </div>
         </div>
 
-        <div id="rules-list-container"></div>
+        <div id="rules-container"></div>
 
-        <div class="related-links">
-          <p class="related-links-title">関連ページ</p>
-          <div class="related-links-grid">
-            <a class="related-link-item" href="petitions.html"><span>ルールの見直しを提案する</span><span>›</span></a>
-            <a class="related-link-item" href="feedback.html"><span>きまりについて質問する</span><span>›</span></a>
+        <div class="next-links">
+          <span class="next-links-label">ルールの見直しを提案したい場合</span>
+          <div class="next-links-items">
+            <a href="petitions.html" class="text-link">提案・署名を作成する →</a>
+            <a href="feedback.html" class="text-link">意見・質問から相談する →</a>
           </div>
         </div>
       </div>
@@ -54,9 +49,59 @@
   </main>
 
   <footer id="site-footer"></footer>
-  <script src="js/firebase-config.js"></script>
-  <script src="js/store.js"></script>
-  <script src="js/site.js"></script>
-  <script src="js/pages.js"></script>
+
+  <script type="module">
+    import { initCommonLayout, escapeHtml, formatMultiline, statusDot } from './js/common.js';
+    import { store } from './js/store.js';
+
+    initCommonLayout('school-rules.html');
+
+    let activeCat = 'all';
+    const container = document.getElementById('rules-container');
+    const searchInput = document.getElementById('rule-search');
+
+    function render() {
+      const q = (searchInput.value || '').trim().toLowerCase();
+      let list = store.getApprovedRules();
+      if (activeCat !== 'all') list = list.filter(r => r.category === activeCat);
+      if (q) list = list.filter(r => r.title.toLowerCase().includes(q) || r.body.toLowerCase().includes(q));
+
+      if (!list.length) {
+        container.innerHTML = `
+          <div class="empty-notice">
+            <p class="empty-notice-title">表示できる承認済みの規定はありません</p>
+            <p class="empty-notice-desc">教職員の承認が完了した規定が公開されるとここに表示されます。</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(r => `
+        <article class="progress-item">
+          <div class="progress-meta-row">
+            ${statusDot(r.approvedBy || '承認済', 'active')}
+            <span>${escapeHtml(r.category)}</span>
+            ${r.approvedAt ? `<span>承認日 ${escapeHtml(r.approvedAt)}</span>` : ''}
+          </div>
+          <h2>${escapeHtml(r.title)}</h2>
+          <p class="editorial-excerpt" style="margin-bottom:18px;">${escapeHtml(r.summary)}</p>
+          <div class="progress-note">
+            <p>${formatMultiline(r.body)}</p>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    document.querySelectorAll('#rule-tabs .tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#rule-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCat = btn.dataset.rcat;
+        render();
+      });
+    });
+    searchInput.addEventListener('input', render);
+    render();
+  </script>
 </body>
 </html>
