@@ -3,233 +3,133 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="橘中学校 生徒会公式プラットフォーム。お知らせ、イベント、活動の進捗、提案・署名、意見受付、校内のきまりを一元化しています。">
-  <title>トップページ | 橘中学校 生徒会</title>
-  <link rel="stylesheet" href="site.css">
+  <meta name="theme-color" content="#fbfbfd">
+  <meta name="description" content="橘中学校生徒会の公式プラットフォーム。お知らせ発信、意見受付、提案・署名、活動進捗の公開を一元化します。">
+  <title>ホーム — 橘中学校 生徒会公式プラットフォーム</title>
+  <link rel="stylesheet" href="css/site.css">
 </head>
-<body>
-<header class="site-header">
-  <div class="header-inner">
-    <a class="site-brand" href="index.html">
-      <span class="brand-mark">橘</span>
-      <span>橘中学校 <span class="brand-sub">生徒会</span></span>
-    </a>
-    <nav class="main-nav" aria-label="主要メニュー">
-      <ul>
-        <li><a href="index.html">トップ</a></li>
-        <li><a href="newsroom.html">お知らせ</a></li>
-        <li><a href="events.html">イベント</a></li>
-        <li><a href="progress.html">活動の進捗</a></li>
-        <li><a href="petitions.html">提案・署名</a></li>
-        <li><a href="feedback.html">意見・質問</a></li>
-        <li><a href="school-rules.html">校内のきまり</a></li>
-      </ul>
-    </nav>
-    <div class="header-actions">
-      <div id="navAuthSlot"><a class="nav-action-btn" href="login.html">ログイン</a></div>
-      <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobileDrawer">メニュー</button>
-    </div>
-  </div>
-</header>
-<nav id="mobileDrawer" class="mobile-drawer" aria-label="スマートフォンメニュー">
-  <ul>
-    <li><a href="index.html">トップ</a></li>
-    <li><a href="newsroom.html">お知らせ</a></li>
-    <li><a href="events.html">イベント</a></li>
-    <li><a href="progress.html">活動の進捗</a></li>
-    <li><a href="petitions.html">提案・署名</a></li>
-    <li><a href="feedback.html">意見・質問</a></li>
-    <li><a href="school-rules.html">校内のきまり</a></li>
-  </ul>
-  <div id="mobileAuthSlot" class="mobile-drawer-actions">
-    <a class="nav-action-btn" href="login.html">ログイン</a>
-  </div>
-</nav>
-<main>
-  <section class="top-hero">
-    <div class="container top-hero-grid">
-      <div>
-        <div class="top-hero-badge">橘中学校 生徒会公式プラットフォーム</div>
-        <h1>声を、集めるだけで<br>終わらせない。</h1>
-        <p>生徒会からのお知らせ、学校生活をより良くする提案とオンライン署名、検討から実現までの進捗公開を一元化した公式Webプラットフォームです。</p>
-        <div class="hero-cta-group">
-          <a class="btn btn-primary" href="petitions.html">提案・署名を見る</a>
-          <a class="btn btn-secondary" href="feedback.html">意見・質問を送る</a>
-        </div>
-      </div>
-      <div class="hero-summary-card">
-        <h2>意見が学校を動かす仕組み <span class="badge badge-accent">4ステップ</span></h2>
-        <ol class="summary-step-list">
-          <li><span class="step-num">1</span><div><strong>意見・提案を届ける</strong><br>日々の気づきや改善提案をオンラインで投稿できます。</div></li>
-          <li><span class="step-num">2</span><div><strong>賛同を集める</strong><br>提案に対して生徒アカウントで賛同（署名）を示せます。</div></li>
-          <li><span class="step-num">3</span><div><strong>生徒会・学校で協議する</strong><br>集まった声を整理し、生徒会での検討や学校への提出を行います。</div></li>
-          <li><span class="step-num">4</span><div><strong>進捗と結果を公開する</strong><br>検討の過程や実現可否の理由まで「活動の進捗」で公開します。</div></li>
-        </ol>
-      </div>
-    </div>
-  </section>
+<body data-page="home">
+  <header id="site-header"></header>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
         <div>
-          <h2>最新のお知らせ</h2>
-          <p>生徒会からの連絡や活動報告を掲載しています。</p>
+          <p class="hero-kicker">橘中学校 生徒会公式プラットフォーム</p>
+          <h1>声を、<br>集めるだけで終わらせない。</h1>
+          <p class="hero-lead">
+            生徒会からのお知らせ、学校生活への意見や提案、オンライン署名、そして学校側との協議結果まで。生徒一人ひとりの声によって学校が変わっていく過程を共有する公式プラットフォームです。
+          </p>
+          <div class="hero-cta-group">
+            <a class="btn btn-primary" href="petitions.html">提案・署名を見る</a>
+            <a class="btn btn-secondary" href="feedback.html">意見・質問を送る</a>
+            <a class="btn btn-ghost" href="progress.html">活動の進捗を確認する ›</a>
+          </div>
         </div>
-        <a class="link-arrow" href="newsroom.html">お知らせ一覧へ →</a>
-      </div>
-      <div id="topNewsContainer" class="loading-state">最新のお知らせを確認しています...</div>
-    </div>
-  </section>
 
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>直近のイベント</h2>
-          <p>生徒会が企画・実施する発表会や行事の案内です。</p>
-        </div>
-        <a class="link-arrow" href="events.html">イベントページへ →</a>
-      </div>
-      <div id="topEventsContainer" class="loading-state">イベント情報を確認しています...</div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>現在進行中の取り組み</h2>
-          <p>提案の受付から学校との協議、結果報告までの進捗を公開しています。</p>
-        </div>
-        <a class="link-arrow" href="progress.html">すべての進捗を見る →</a>
-      </div>
-      <div id="topProgressContainer" class="loading-state">進行中の取り組みを確認しています...</div>
-    </div>
-  </section>
-
-  <section class="related-links">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>目的別メニュー</h2>
-          <p>知りたい情報や参加したい手続きへ直接移動できます。</p>
-        </div>
-      </div>
-      <div class="related-grid">
-        <a class="related-item" href="petitions.html"><span>提案・署名に参加する</span><span>→</span></a>
-        <a class="related-item" href="feedback.html"><span>意見・質問を送信する</span><span>→</span></a>
-        <a class="related-item" href="school-rules.html"><span>校内のきまりを確認する</span><span>→</span></a>
-      </div>
-    </div>
-  </section>
-</main>
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <strong>橘中学校 生徒会公式プラットフォーム</strong>
-        <p style="margin:6px 0 0;font-size:0.8rem;">声を、集めるだけで終わらせない。</p>
-      </div>
-      <div class="footer-links">
-        <a href="index.html">トップ</a>
-        <a href="newsroom.html">お知らせ</a>
-        <a href="events.html">イベント</a>
-        <a href="progress.html">活動の進捗</a>
-        <a href="petitions.html">提案・署名</a>
-        <a href="feedback.html">意見・質問</a>
-        <a href="school-rules.html">校内のきまり</a>
-        <a href="privacy.html">プライバシー・利用上の注意</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>掲載内容および各機能の運用は、学校の確認・承認を経て決定します。</span>
-      <span>© 橘中学校 生徒会</span>
-    </div>
-  </div>
-</footer>
-<script type="module" src="site.js"></script>
-<script type="module">
-  import { Backend, STAGE_LABELS, formatDate, formatDateTime } from "./js/firebase-service.js";
-  import { escapeHtml } from "./site.js";
-
-  async function initTopPage() {
-    const newsEl = document.getElementById("topNewsContainer");
-    const eventsEl = document.getElementById("topEventsContainer");
-    const progressEl = document.getElementById("topProgressContainer");
-
-    try {
-      const [newsList, eventList, progressList] = await Promise.all([
-        Backend.getPublishedNews(3),
-        Backend.getPublishedEvents(),
-        Backend.getPublicProgress()
-      ]);
-
-      // 最新のお知らせ
-      if (newsList.length === 0) {
-        newsEl.innerHTML = `<div class="empty-state"><h3>現在公開されているお知らせはありません</h3><p>生徒会からの新しいお知らせや活動報告が公開されると、ここに表示されます。</p></div>`;
-      } else {
-        newsEl.className = "card-grid";
-        newsEl.innerHTML = newsList.slice(0, 3).map((item) => `
-          <article class="card fade-in visible">
-            <div class="card-meta">
-              <span class="badge badge-accent">${escapeHtml(item.category || "お知らせ")}</span>
-              <span>${formatDate(item.publishedAt)}</span>
+        <aside class="hero-summary-panel" aria-label="現在の公開状況">
+          <div class="hero-summary-title">
+            <span>現在の公開データ状況</span>
+            <span class="badge badge-accent">2026年度</span>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric-item">
+              <span class="metric-value" id="metric-news">0件</span>
+              <span class="metric-label">公開中のお知らせ</span>
             </div>
-            <h3>${escapeHtml(item.title)}</h3>
-            <p>${escapeHtml((item.body || "").slice(0, 90))}${(item.body || "").length > 90 ? "…" : ""}</p>
-            <div class="card-footer"><a class="link-arrow" href="newsroom.html">詳細を読む →</a></div>
-          </article>
-        `).join("");
-      }
-
-      // 直近のイベント
-      if (eventList.length === 0) {
-        eventsEl.innerHTML = `<div class="empty-state"><h3>現在予定されているイベントはありません</h3><p>生徒会主催の行事や発表会の開催が決まり次第、日時と詳細を掲載します。</p></div>`;
-      } else {
-        eventsEl.className = "card-grid-2";
-        eventsEl.innerHTML = eventList.slice(0, 2).map((ev) => `
-          <article class="card fade-in visible">
-            <div class="card-meta">
-              <span class="badge badge-accent">${escapeHtml(ev.statusLabel || "開催案内")}</span>
-              <span>${formatDateTime(ev.startAt)}</span>
+            <div class="metric-item">
+              <span class="metric-value" id="metric-petitions">0件</span>
+              <span class="metric-label">募集中の提案・署名</span>
             </div>
-            <h3>${escapeHtml(ev.title)}</h3>
-            <p>${escapeHtml((ev.description || "").slice(0, 100))}</p>
-            <div class="card-footer"><a class="link-arrow" href="events.html">イベント詳細へ →</a></div>
-          </article>
-        `).join("");
-      }
+            <div class="metric-item">
+              <span class="metric-value" id="metric-progress">0件</span>
+              <span class="metric-label">公開中の進捗案件</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value" id="metric-events">0件</span>
+              <span class="metric-label">予定・開催中イベント</span>
+            </div>
+          </div>
+          <p class="hero-status-note" id="hero-schedule-note">アクセス状況を確認しています…</p>
+        </aside>
+      </div>
+    </section>
 
-      // 現在進行中の取り組み
-      if (progressList.length === 0) {
-        progressEl.innerHTML = `<div class="empty-state"><h3>現在公開中の取り組み案件はありません</h3><p>正式に検討・公開される案件が登録されると、現在の段階と更新日がここに表示されます。</p></div>`;
-      } else {
-        progressEl.className = "card-grid-2";
-        progressEl.innerHTML = progressList.slice(0, 2).map((pr) => {
-          const stageIdx = Math.min(5, Math.max(0, Number(pr.currentStage || 1) - 1));
-          return `
-            <article class="card fade-in visible">
-              <div class="card-meta">
-                <span class="badge badge-success">${escapeHtml(pr.status || "対応中")}</span>
-                <span>更新日: ${formatDate(pr.updatedAt)}</span>
-              </div>
-              <h3>${escapeHtml(pr.title)}</h3>
-              <p>現在の段階: <strong>${escapeHtml(STAGE_LABELS[stageIdx])}</strong></p>
-              <div class="card-footer"><a class="link-arrow" href="progress.html">進捗の詳細を見る →</a></div>
-            </article>
-          `;
-        }).join("");
-      }
-    } catch (err) {
-      console.error(err);
-      newsEl.innerHTML = `<div class="empty-state"><h3>情報の読み込みに失敗しました</h3><p>通信環境を確認のうえ、再度お試しください。</p></div>`;
-      eventsEl.innerHTML = "";
-      progressEl.innerHTML = "";
-    }
-  }
+    <section class="section reveal">
+      <div class="container">
+        <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+          <div>
+            <span class="section-eyebrow">お知らせ</span>
+            <h2 class="section-title">最新のお知らせ・活動報告</h2>
+          </div>
+          <a class="btn btn-secondary" href="newsroom.html">すべてのお知らせを見る</a>
+        </div>
+        <div id="home-latest-news"></div>
+      </div>
+    </section>
 
-  initTopPage();
-</script>
+    <section class="section section-alt reveal">
+      <div class="container">
+        <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+          <div>
+            <span class="section-eyebrow">活動の進捗</span>
+            <h2 class="section-title">現在進行中の取り組み</h2>
+            <p class="section-desc">受付から検討、学校への提出・協議、最終結果の報告まで6段階で公開します。</p>
+          </div>
+          <a class="btn btn-secondary" href="progress.html">進捗一覧を見る</a>
+        </div>
+        <div id="home-active-progress"></div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="container">
+        <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+          <div>
+            <span class="section-eyebrow">イベント</span>
+            <h2 class="section-title">直近の発表会・行事案内</h2>
+          </div>
+          <a class="btn btn-secondary" href="events.html">イベントページへ</a>
+        </div>
+        <div id="home-upcoming-events"></div>
+      </div>
+    </section>
+
+    <section class="section section-alt reveal">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">プラットフォームの活用方法</span>
+          <h2 class="section-title">知る、届ける、確かめる。</h2>
+          <p class="section-desc">目的に合わせて各窓口をご利用ください。</p>
+        </div>
+        <div class="editorial-grid-3">
+          <div class="editorial-item">
+            <span class="editorial-item-num">01 / 提案・署名</span>
+            <h3>みんなの賛同を集める</h3>
+            <p>学校生活をより良くする改善案を投稿し、在校生からのオンライン署名を集めることができます。</p>
+            <p style="margin-top:12px;"><a class="btn-ghost" href="petitions.html" style="padding-left:0;">提案・署名ページへ ›</a></p>
+          </div>
+          <div class="editorial-item">
+            <span class="editorial-item-num">02 / 意見・質問</span>
+            <h3>日常の気づきを直接届ける</h3>
+            <p>学校生活の要望や生徒会への質問を非公開の窓口から送信できます。個人情報が一般公開されることはありません。</p>
+            <p style="margin-top:12px;"><a class="btn-ghost" href="feedback.html" style="padding-left:0;">意見・質問ページへ ›</a></p>
+          </div>
+          <div class="editorial-item">
+            <span class="editorial-item-num">03 / 校内のきまり</span>
+            <h3>承認済みの正式ルールを確認</h3>
+            <p>学校側が正式に確認・承認した最新の校内生活ルールを、いつでも分かりやすく確認できます。</p>
+            <p style="margin-top:12px;"><a class="btn-ghost" href="school-rules.html" style="padding-left:0;">校内のきまりを見る ›</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/pages.js"></script>
 </body>
 </html>
