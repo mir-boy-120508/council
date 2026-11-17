@@ -1,76 +1,139 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fbfbfd">
-  <meta name="description" content="橘中学校生徒会からの公式発表、お知らせ、活動報告の一覧。">
-  <title>お知らせ — 橘中学校 生徒会公式プラットフォーム</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お知らせ | 橘中学校 生徒会公式プラットフォーム</title>
   <link rel="stylesheet" href="css/site.css">
 </head>
-<body data-page="newsroom">
+<body>
   <header id="site-header"></header>
 
   <main>
     <div class="container">
-      <nav class="breadcrumb" aria-label="現在位置">
-        <ol>
-          <li><a href="index.html">ホーム</a></li>
-          <li aria-current="page">お知らせ</li>
-        </ol>
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol><li><a href="index.html">ホーム</a></li><li>お知らせ</li></ol>
       </nav>
+      <div class="page-header">
+        <span class="eyebrow">お知らせ・公式発表</span>
+        <h1>生徒会からの最新情報</h1>
+        <p class="page-lead">生徒会執行部からの公式発表、委員会との連携報告、試行運用の結果などを掲載しています。</p>
+      </div>
     </div>
 
-    <section class="page-header">
+    <section class="band-tight">
       <div class="container">
-        <p class="page-header-eyebrow">生徒会からの公式情報</p>
-        <h1>お知らせ・活動報告</h1>
-        <p class="page-header-lead">生徒会からの連絡事項、決定した取り組みの公式発表、各委員会の活動記録を掲載します。</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="toolbar">
-          <div class="filter-pills" role="group" aria-label="カテゴリー絞り込み">
-            <button type="button" class="filter-pill active" data-news-cat="all">すべて</button>
-            <button type="button" class="filter-pill" data-news-cat="お知らせ">お知らせ</button>
-            <button type="button" class="filter-pill" data-news-cat="公式発表">公式発表</button>
-            <button type="button" class="filter-pill" data-news-cat="活動報告">活動報告</button>
+        <div class="filter-bar">
+          <div class="tab-list" role="tablist" aria-label="カテゴリー絞り込み">
+            <button type="button" class="tab-btn active" data-cat="all">すべて</button>
+            <button type="button" class="tab-btn" data-cat="公式発表">公式発表</button>
+            <button type="button" class="tab-btn" data-cat="お知らせ">お知らせ</button>
+            <button type="button" class="tab-btn" data-cat="活動報告">活動報告</button>
           </div>
-          <div class="search-box">
-            <input type="search" id="news-search" class="search-input" placeholder="キーワードで検索" aria-label="お知らせ検索">
-            <select id="news-sort" class="form-control" style="width:auto; border-radius:999px; padding:8px 14px; font-size:0.875rem;" aria-label="並び替え">
-              <option value="desc">新しい順</option>
-              <option value="asc">古い順</option>
-            </select>
+          <div class="search-controls">
+            <input type="search" id="news-search" class="minimal-input" placeholder="キーワードで検索" aria-label="お知らせを検索">
           </div>
         </div>
 
         <div id="news-list-container"></div>
 
-        <div class="related-links">
-          <p class="related-links-title">関連ページ</p>
-          <div class="related-links-grid">
-            <a class="related-link-item" href="progress.html"><span>活動の進捗を確認する</span><span>›</span></a>
-            <a class="related-link-item" href="events.html"><span>イベント案内を見る</span><span>›</span></a>
+        <div class="next-links">
+          <span class="next-links-label">関連ページ</span>
+          <div class="next-links-items">
+            <a href="progress.html" class="text-link">活動の進捗を見る →</a>
+            <a href="events.html" class="text-link">イベント日程を見る →</a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <div class="modal-backdrop" id="news-modal" role="dialog" aria-modal="true" aria-label="記事詳細">
-    <div class="modal-dialog">
-      <button type="button" class="modal-close" aria-label="閉じる" onclick="document.getElementById('news-modal').classList.remove('open')">✕</button>
-      <div id="news-modal-content"></div>
+  <div class="modal-backdrop" id="article-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-sheet">
+      <button type="button" class="modal-close" id="modal-close-btn" aria-label="閉じる">✕</button>
+      <div id="modal-body-content"></div>
     </div>
   </div>
 
   <footer id="site-footer"></footer>
-  <script src="js/firebase-config.js"></script>
-  <script src="js/store.js"></script>
-  <script src="js/site.js"></script>
-  <script src="js/pages.js"></script>
+
+  <script type="module">
+    import { initCommonLayout, escapeHtml, formatMultiline } from './js/common.js';
+    import { store } from './js/store.js';
+
+    initCommonLayout('newsroom.html');
+
+    let currentCategory = 'all';
+    const container = document.getElementById('news-list-container');
+    const searchInput = document.getElementById('news-search');
+    const modal = document.getElementById('article-modal');
+
+    function render() {
+      const q = (searchInput.value || '').trim().toLowerCase();
+      let list = store.getPublishedNews();
+      if (currentCategory !== 'all') list = list.filter(n => n.category === currentCategory);
+      if (q) list = list.filter(n => n.title.toLowerCase().includes(q) || n.summary.toLowerCase().includes(q));
+
+      if (!list.length) {
+        container.innerHTML = `
+          <div class="empty-notice">
+            <p class="empty-notice-title">該当するお知らせはありません</p>
+            <p class="empty-notice-desc">条件を変更するか、生徒会からの新しい発表が公開されるまでお待ちください。</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="editorial-list">
+          ${list.map(n => `
+            <article class="editorial-row is-clickable" data-open-id="${n.id}" tabindex="0" role="button">
+              <div class="editorial-meta">
+                <span>${escapeHtml(n.publishedAt)}</span>
+                <span>${escapeHtml(n.category)}</span>
+              </div>
+              <div>
+                <h2 class="editorial-title">${escapeHtml(n.title)}</h2>
+                <p class="editorial-excerpt">${escapeHtml(n.summary)}</p>
+              </div>
+              <span class="editorial-arrow">全文を読む →</span>
+            </article>
+          `).join('')}
+        </div>
+      `;
+
+      container.querySelectorAll('[data-open-id]').forEach(row => {
+        const open = () => {
+          const item = store.getPublishedNews().find(n => n.id === row.dataset.openId);
+          if (!item) return;
+          document.getElementById('modal-body-content').innerHTML = `
+            <div class="eyebrow">${escapeHtml(item.publishedAt)} · ${escapeHtml(item.category)}</div>
+            <h2 id="modal-title" style="font-size:1.5rem;line-height:1.35;margin:0 0 20px;">${escapeHtml(item.title)}</h2>
+            <div style="font-size:1rem;line-height:1.95;color:var(--text-primary);">${formatMultiline(item.body)}</div>
+            <div style="margin-top:28px;padding-top:16px;border-top:1px solid var(--hairline);font-size:0.8125rem;color:var(--text-secondary);">発信：${escapeHtml(item.authorName || '生徒会執行部')}</div>
+          `;
+          modal.classList.add('open');
+        };
+        row.addEventListener('click', open);
+        row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+      });
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.dataset.cat;
+        render();
+      });
+    });
+
+    searchInput.addEventListener('input', render);
+    document.getElementById('modal-close-btn').addEventListener('click', () => modal.classList.remove('open'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') modal.classList.remove('open'); });
+
+    render();
+  </script>
 </body>
 </html>
