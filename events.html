@@ -1,67 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0d12">
-  <meta name="description" content="橘中学校生徒会が開催する特別な発表や行事の案内・記録。">
-  <title>イベント — 橘中学校 生徒会公式プラットフォーム</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>イベント | 橘中学校 生徒会公式プラットフォーム</title>
   <link rel="stylesheet" href="css/site.css">
 </head>
-<body class="theme-dark" data-page="events">
+<body class="theme-dark">
   <header id="site-header"></header>
 
   <main>
     <div class="container">
-      <nav class="breadcrumb" aria-label="現在位置">
-        <ol>
-          <li><a href="index.html">ホーム</a></li>
-          <li aria-current="page">イベント</li>
-        </ol>
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol><li><a href="index.html">ホーム</a></li><li>イベント</li></ol>
       </nav>
+      <div class="page-header">
+        <span class="eyebrow">生徒会主催行事・対話企画</span>
+        <h1>イベント・全校集会案内</h1>
+        <p class="page-lead">生徒総会、昼休み対話会、ボランティア活動など、全校生徒が参加できる企画の日時と開催場所を案内しています。</p>
+      </div>
     </div>
 
-    <section class="page-header">
+    <section class="band-tight">
       <div class="container">
-        <p class="page-header-eyebrow">生徒会 特別発表・行事案内</p>
-        <h1>イベント</h1>
-        <p class="page-header-lead">生徒総会、文化発表会企画、全校向け特別発表の開催日時と概要、終了後の記録アーカイブを掲載します。</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-eyebrow">開催情報</span>
-          <h2 class="section-title">開催予定・開催中のイベント</h2>
+        <div class="section-head">
+          <h2>開催予定のイベント</h2>
         </div>
-        <div id="events-active-container"></div>
+        <div id="upcoming-events"></div>
 
-        <div class="section-header" style="margin-top:64px;">
-          <span class="section-eyebrow">記録アーカイブ</span>
-          <h2 class="section-title">終了したイベントの記録</h2>
+        <div class="section-head" style="margin-top:64px;">
+          <h2>実施済みのイベント記録</h2>
         </div>
-        <div id="events-archive-container"></div>
+        <div id="past-events"></div>
 
-        <div class="alert-box" style="margin-top:48px;">
-          <strong>配信機能に関するご案内：</strong>現在のバージョンでは開催日時・概要・関連情報の掲載およびアーカイブ記録に対応しています。事前収録動画の同時再生（プレミア公開）やライブ映像配信は将来的な拡張機能として検討中です。また、Webサイトを利用できない生徒にも情報が届くよう、重要な発表は校内放送や掲示と併用します。
-        </div>
-
-        <div class="related-links">
-          <p class="related-links-title">関連ページ</p>
-          <div class="related-links-grid">
-            <a class="related-link-item" href="newsroom.html"><span>お知らせ・活動報告を見る</span><span>›</span></a>
-            <a class="related-link-item" href="progress.html"><span>活動の進捗を確認する</span><span>›</span></a>
-          </div>
+        <div class="inline-notice" style="margin-top:48px;">
+          ライブ動画配信や同時視聴プレミア機能は本バージョンでは提供していません。当日の要旨や資料は終了後に「お知らせ」へ掲載します。
         </div>
       </div>
     </section>
   </main>
 
   <footer id="site-footer"></footer>
-  <script src="js/firebase-config.js"></script>
-  <script src="js/store.js"></script>
-  <script src="js/site.js"></script>
-  <script src="js/pages.js"></script>
+
+  <script type="module">
+    import { initCommonLayout, escapeHtml, statusDot } from './js/common.js';
+    import { store } from './js/store.js';
+
+    initCommonLayout('events.html');
+
+    const events = store.getState().events;
+    const upcoming = events.filter(e => e.status === 'upcoming');
+    const past = events.filter(e => e.status !== 'upcoming');
+
+    document.getElementById('upcoming-events').innerHTML = upcoming.length ? upcoming.map(ev => `
+      <article class="event-feature">
+        <div class="progress-meta-row">
+          ${statusDot('開催予定', 'accent')}
+          <span>${escapeHtml(ev.date)}　${escapeHtml(ev.time)}</span>
+          <span>会場：${escapeHtml(ev.location)}</span>
+        </div>
+        <h3 style="font-size:1.375rem;margin:0 0 10px;">${escapeHtml(ev.title)}</h3>
+        <p class="editorial-excerpt">${escapeHtml(ev.summary)}</p>
+        ${ev.notes ? `<p style="font-size:0.875rem;color:var(--text-secondary);margin:14px 0 0;">参加案内：${escapeHtml(ev.notes)}</p>` : ''}
+      </article>
+    `).join('') : `
+      <div class="empty-notice">
+        <p class="empty-notice-title">現在予定されているイベントはありません</p>
+        <p class="empty-notice-desc">次回の生徒総会や対話企画が決まり次第、こちらに掲載します。</p>
+      </div>
+    `;
+
+    document.getElementById('past-events').innerHTML = past.length ? `
+      <div class="editorial-list">
+        ${past.map(ev => `
+          <article class="editorial-row">
+            <div class="editorial-meta">
+              <span>${escapeHtml(ev.date)}</span>
+              <span>${escapeHtml(ev.location)}</span>
+            </div>
+            <div>
+              <h3 class="editorial-title">${escapeHtml(ev.title)}</h3>
+              <p class="editorial-excerpt">${escapeHtml(ev.summary)}</p>
+              ${ev.notes ? `<p style="font-size:0.875rem;color:var(--text-secondary);margin:8px 0 0;">実施報告：${escapeHtml(ev.notes)}</p>` : ''}
+            </div>
+            <span></span>
+          </article>
+        `).join('')}
+      </div>
+    ` : `
+      <div class="empty-notice">
+        <p class="empty-notice-title">過去のイベント記録はまだありません</p>
+      </div>
+    `;
+  </script>
 </body>
 </html>
