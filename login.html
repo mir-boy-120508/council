@@ -1,63 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fbfbfd">
-  <meta name="description" content="橘中学校生徒会公式プラットフォーム ログイン画面">
-  <title>ログイン — 橘中学校 生徒会公式プラットフォーム</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン | 橘中学校 生徒会公式プラットフォーム</title>
   <link rel="stylesheet" href="css/site.css">
 </head>
-<body data-page="login">
+<body>
   <header id="site-header"></header>
 
   <main>
-    <div class="container">
-      <nav class="breadcrumb" aria-label="現在位置">
-        <ol>
-          <li><a href="index.html">ホーム</a></li>
-          <li aria-current="page">ログイン</li>
-        </ol>
+    <div class="container-narrow">
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol><li><a href="index.html">ホーム</a></li><li>ログイン</li></ol>
       </nav>
+      <div class="page-header">
+        <span class="eyebrow">学校アカウント認証</span>
+        <h1>ログイン</h1>
+        <p class="page-lead">提案の作成・賛同署名・意見送信および管理画面の利用には、学校付与のアカウントでログインしてください。</p>
+      </div>
     </div>
 
-    <section class="page-header">
-      <div class="container">
-        <p class="page-header-eyebrow">本人確認・権限認証</p>
-        <h1>ログイン</h1>
-        <p class="page-header-lead">署名・提案の投稿、意見・質問の送信、および生徒会役員・教職員の管理画面を利用するためにログインします。</p>
-      </div>
-    </section>
+    <section class="band-tight">
+      <div class="container-narrow">
+        <div id="auth-mode-notice"></div>
 
-    <section class="section">
-      <div class="container" style="max-width:640px;">
-        <div id="firebase-mode-indicator"></div>
-        <div id="login-current-status"></div>
+        <div class="form-section">
+          <form id="form-login">
+            <div class="field">
+              <label class="field-label" for="login-name">氏名（学年・組）<span class="field-req">必須</span></label>
+              <input type="text" id="login-name" name="displayName" class="field-control" required placeholder="例：橘 太郎（2年1組）">
+            </div>
+            <div class="field">
+              <label class="field-label" for="login-email">学校メールアドレス<span class="field-req">必須</span></label>
+              <input type="email" id="login-email" name="email" class="field-control" required placeholder="例：student.201@tachibana-jhs.ed.jp">
+            </div>
+            <div class="field">
+              <label class="field-label" for="login-role">利用区分（ローカル検証用ロール選択）</label>
+              <select id="login-role" name="role" class="field-control">
+                <option value="student">在校生（student）</option>
+                <option value="officer">生徒会役員（officer）</option>
+                <option value="teacher">顧問教職員（teacher）</option>
+                <option value="admin">システム管理者（admin）</option>
+              </select>
+              <p class="field-help">Firebase Auth 本番接続時は、Firestore の権限ロールが自動的に適用されます。</p>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">ログインする</button>
+          </form>
+        </div>
 
-        <form id="login-form" class="form-panel">
-          <h2 style="font-size:1.2rem; margin:0 0 18px;">アカウントを選択してログイン</h2>
-          <div class="form-group">
-            <label class="form-label" for="login-account-select">検証・テスト用アカウント（役割別）</label>
-            <select class="form-control" id="login-account-select"></select>
-            <p class="form-hint">本番Firebase接続時は、学校発行のGoogle Workspaceアカウントまたは独自認証IDによるFirebase Authenticationへ切り替わります。</p>
-          </div>
-          <div class="form-group">
-            <label class="checkbox-row">
-              <input type="checkbox" id="login-persist">
-              <span>ブラウザを閉じてもログイン状態を維持する（共用端末ではチェックを外してください）</span>
-            </label>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;">ログインする</button>
-        </form>
-
-        <div class="form-panel" style="margin-top:32px; background:var(--bg-secondary);">
-          <h3 style="font-size:1.05rem; margin:0 0 10px;">動作検証用データの切り替え（開発・検収テスト用）</h3>
-          <p style="font-size:0.875rem; color:var(--text-secondary); margin:0 0 16px;">
-            本番初期状態では、架空の情報を事実として掲載しないため全項目が「0件（空状態）」になっています。記事一覧・署名・進捗・校則承認などの全機能をテストしたい場合は、サンプルデータを読み込んで確認できます。
-          </p>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button type="button" class="btn btn-secondary" id="login-load-sample">動作確認用サンプルデータを読み込む</button>
-            <button type="button" class="btn btn-ghost" id="login-clear-sample">本番初期状態（空データ）に戻す</button>
+        <div style="margin-top:48px;padding-top:28px;border-top:1px solid var(--hairline);">
+          <h2 style="font-size:1.0625rem;margin:0 0 8px;">公開前・動作検証用データの切替</h2>
+          <p class="field-help" style="margin-bottom:16px;">初期状態は本番公開時と同じ「データ0件」に設定されています。各画面の表示確認を行う場合のみサンプルデータを読み込んでください。</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;">
+            <button type="button" class="btn btn-secondary" id="btn-load-sample">検証用サンプルデータを読み込む</button>
+            <button type="button" class="btn btn-secondary" id="btn-clear-sample">本番初期状態（0件）へ初期化</button>
           </div>
         </div>
       </div>
@@ -65,9 +62,48 @@
   </main>
 
   <footer id="site-footer"></footer>
-  <script src="js/firebase-config.js"></script>
-  <script src="js/store.js"></script>
-  <script src="js/site.js"></script>
-  <script src="js/pages.js"></script>
+
+  <script type="module">
+    import { initCommonLayout, showToast } from './js/common.js';
+    import { loginLocalAccount, isStaffRole } from './js/auth.js';
+    import { isFirebaseConfigured } from './js/firebase-config.js';
+    import { store } from './js/store.js';
+
+    initCommonLayout('login.html');
+
+    document.getElementById('auth-mode-notice').innerHTML = isFirebaseConfigured()
+      ? `<div class="inline-notice is-success">本番 Firebase 認証モードで動作しています。</div>`
+      : `<div class="inline-notice">現在 <code>js/firebase-config.js</code> が未設定のため、ローカル検証モードで動作しています。</div>`;
+
+    document.getElementById('form-login').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      try {
+        const session = loginLocalAccount({
+          displayName: fd.get('displayName'),
+          email: fd.get('email'),
+          role: fd.get('role')
+        });
+        showToast('ログインしました。');
+        setTimeout(() => {
+          location.href = isStaffRole(session.role) ? 'admin.html' : 'index.html';
+        }, 350);
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    document.getElementById('btn-load-sample').addEventListener('click', () => {
+      store.enableSampleData();
+      showToast('検証用サンプルデータを読み込みました。');
+      setTimeout(() => location.reload(), 300);
+    });
+
+    document.getElementById('btn-clear-sample').addEventListener('click', () => {
+      store.resetToProductionEmpty();
+      showToast('本番初期状態（0件）に戻しました。');
+      setTimeout(() => location.reload(), 300);
+    });
+  </script>
 </body>
 </html>
