@@ -3,322 +3,74 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="生徒が学校生活をより良くするための提案を行い、オンラインで賛同（署名）を集めるページです。">
-  <title>提案・署名 | 橘中学校 生徒会</title>
-  <link rel="stylesheet" href="site.css">
+  <meta name="theme-color" content="#fbfbfd">
+  <meta name="description" content="生徒による学校生活の改善提案とオンライン署名募集ページ。">
+  <title>提案・署名 — 橘中学校 生徒会公式プラットフォーム</title>
+  <link rel="stylesheet" href="css/site.css">
 </head>
-<body>
-<header class="site-header">
-  <div class="header-inner">
-    <a class="site-brand" href="index.html">
-      <span class="brand-mark">橘</span>
-      <span>橘中学校 <span class="brand-sub">生徒会</span></span>
-    </a>
-    <nav class="main-nav" aria-label="主要メニュー">
-      <ul>
-        <li><a href="index.html">トップ</a></li>
-        <li><a href="newsroom.html">お知らせ</a></li>
-        <li><a href="events.html">イベント</a></li>
-        <li><a href="progress.html">活動の進捗</a></li>
-        <li><a href="petitions.html">提案・署名</a></li>
-        <li><a href="feedback.html">意見・質問</a></li>
-        <li><a href="school-rules.html">校内のきまり</a></li>
-      </ul>
-    </nav>
-    <div class="header-actions">
-      <div id="navAuthSlot"><a class="nav-action-btn" href="login.html">ログイン</a></div>
-      <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobileDrawer">メニュー</button>
-    </div>
-  </div>
-</header>
-<nav id="mobileDrawer" class="mobile-drawer" aria-label="スマートフォンメニュー">
-  <ul>
-    <li><a href="index.html">トップ</a></li>
-    <li><a href="newsroom.html">お知らせ</a></li>
-    <li><a href="events.html">イベント</a></li>
-    <li><a href="progress.html">活動の進捗</a></li>
-    <li><a href="petitions.html">提案・署名</a></li>
-    <li><a href="feedback.html">意見・質問</a></li>
-    <li><a href="school-rules.html">校内のきまり</a></li>
-  </ul>
-  <div id="mobileAuthSlot" class="mobile-drawer-actions">
-    <a class="nav-action-btn" href="login.html">ログイン</a>
-  </div>
-</nav>
-<main>
-  <nav class="breadcrumb" aria-label="現在位置">
-  <div class="container">
-    <ol>
-      <li><a href="index.html">トップ</a></li>
-      <li aria-current="page">提案・署名</li>
-    </ol>
-  </div>
-</nav>
-  <section class="page-header">
-    <div class="container">
-      <span class="page-category-tag">生徒参加・オンライン署名</span>
-      <h1>提案・署名</h1>
-      <p class="page-lead">学校生活をより良くするための提案を投稿し、他の生徒からの賛同（署名）を集めることができます。</p>
-    </div>
-  </section>
+<body data-page="petitions">
+  <header id="site-header"></header>
 
-  <section class="section">
+  <main>
     <div class="container">
-      <div class="notice-banner">
-        <strong>署名と公開のルール：</strong>
-        署名には生徒アカウントでのログインが必要です（1人1票・重複不可）。署名した生徒の氏名や個人情報は一般公開されません。また、目標署名数に達した場合は生徒会での検討・提出を促しますが、自動的に決定されるものではありません。目標に届かなかった提案も内容を確認します。
+      <nav class="breadcrumb" aria-label="現在位置">
+        <ol>
+          <li><a href="index.html">ホーム</a></li>
+          <li aria-current="page">提案・署名</li>
+        </ol>
+      </nav>
+    </div>
+
+    <section class="page-header">
+      <div class="container">
+        <p class="page-header-eyebrow">生徒参加・オンライン署名</p>
+        <h1>提案・署名</h1>
+        <p class="page-header-lead">学校生活をより良くするための提案を行い、賛同する生徒からのオンライン署名を集めることができます。</p>
       </div>
+    </section>
 
-      <div class="filter-bar">
-        <div class="filter-tabs" id="petitionCatTabs">
-          <button class="filter-tab active" data-cat="all">すべて</button>
-          <button class="filter-tab" data-cat="学校生活">学校生活</button>
-          <button class="filter-tab" data-cat="行事・活動">行事・活動</button>
-          <button class="filter-tab" data-cat="校内環境">校内環境</button>
-          <button class="filter-tab" data-cat="校内のきまり">校内のきまり</button>
+    <section class="section">
+      <div class="container">
+        <div id="petition-schedule-banner"></div>
+
+        <div class="alert-box">
+          <strong>署名のルールと個人情報の保護について：</strong>
+          <ul style="margin:8px 0 0; padding-left:20px;">
+            <li>署名には生徒アカウントでのログインが必要です（同一アカウントによる重複署名はできません）。</li>
+            <li>一般公開されるのは賛同人数のみであり、<strong>署名した生徒の氏名や個人情報は一般公開されません</strong>。</li>
+            <li>目標署名数に達すると生徒会での検討・学校への提出が促されますが、自動承認ではありません。また、目標数に届かなかった提案も生徒会で内容を確認します。</li>
+          </ul>
         </div>
-        <button id="toggleNewPetitionBtn" class="btn btn-primary btn-sm">新しい提案を投稿する</button>
+
+        <div id="petition-form-wrap" style="margin-bottom:48px;"></div>
+
+        <div class="toolbar">
+          <div class="filter-pills" role="group" aria-label="提案カテゴリー絞り込み">
+            <button type="button" class="filter-pill active" data-pet-cat="all">すべて</button>
+            <button type="button" class="filter-pill" data-pet-cat="校内生活">校内生活</button>
+            <button type="button" class="filter-pill" data-pet-cat="学習環境">学習環境</button>
+            <button type="button" class="filter-pill" data-pet-cat="学校行事">学校行事</button>
+            <button type="button" class="filter-pill" data-pet-cat="校内のきまり">校内のきまり</button>
+          </div>
+        </div>
+
+        <div id="petitions-list-container"></div>
+
+        <div class="related-links">
+          <p class="related-links-title">関連ページ</p>
+          <div class="related-links-grid">
+            <a class="related-link-item" href="progress.html"><span>検討中の提案の進捗を見る</span><span>›</span></a>
+            <a class="related-link-item" href="feedback.html"><span>非公開で意見・質問を送る</span><span>›</span></a>
+          </div>
+        </div>
       </div>
+    </section>
+  </main>
 
-      <!-- 新規提案フォーム（折りたたみ） -->
-      <div id="newPetitionBox" class="form-card" style="display:none;margin-bottom:32px;">
-        <h2 style="margin:0 0 8px;font-size:1.2rem;">新しい提案を投稿する</h2>
-        <p style="margin:0 0 18px;font-size:0.875rem;color:var(--text-secondary);">投稿された内容は生徒会・教職員が確認したうえで公開されます。</p>
-        <div id="petitionFormAuthNotice" class="notice-banner" style="display:none;"></div>
-        <form id="petitionCreateForm">
-          <div class="form-group">
-            <label for="petTitle">提案タイトル（必須）</label>
-            <input type="text" id="petTitle" class="form-control" maxlength="80" required placeholder="例：昼休みの図書室利用時間の延長について">
-          </div>
-          <div class="form-group">
-            <label for="petCategory">カテゴリー</label>
-            <select id="petCategory" class="form-control">
-              <option value="学校生活">学校生活</option>
-              <option value="行事・活動">行事・活動</option>
-              <option value="校内環境">校内環境</option>
-              <option value="校内のきまり">校内のきまり</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="petTarget">目標署名数（10人単位）</label>
-            <input type="number" id="petTarget" class="form-control" min="10" max="500" step="10" value="30" required>
-            <p class="form-help">提案の影響範囲に応じて10人単位で設定してください（後から生徒会で調整する場合があります）。</p>
-          </div>
-          <div class="form-group">
-            <label for="petDesc">提案内容・背景（必須）</label>
-            <textarea id="petDesc" class="form-control" rows="5" maxlength="1500" required placeholder="現在の課題、具体的な改善案、期待される効果などを分かりやすく記入してください。"></textarea>
-          </div>
-          <div class="form-group">
-            <label style="display:flex;align-items:center;gap:8px;font-weight:500;cursor:pointer;">
-              <input type="checkbox" id="petShowName">
-              <span>提案者名（表示名）の公開に同意する（チェックしない場合は「非公開」として掲載されます）</span>
-            </label>
-          </div>
-          <div id="petFormMessage" style="margin-bottom:12px;font-size:0.9rem;"></div>
-          <div style="display:flex;gap:10px;">
-            <button type="submit" class="btn btn-primary">提案を送信する</button>
-            <button type="button" id="cancelPetitionBtn" class="btn btn-secondary">キャンセル</button>
-          </div>
-        </form>
-      </div>
-
-      <div id="petitionsListContainer" class="loading-state">提案・署名一覧を読み込んでいます...</div>
-    </div>
-  </section>
-
-  <section class="related-links">
-    <div class="container">
-      <div class="related-grid">
-        <a class="related-item" href="progress.html"><span>検討中の進捗を見る</span><span>→</span></a>
-        <a class="related-item" href="feedback.html"><span>個別意見・質問を送る</span><span>→</span></a>
-        <a class="related-item" href="school-rules.html"><span>現行の校内のきまり</span><span>→</span></a>
-      </div>
-    </div>
-  </section>
-</main>
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <strong>橘中学校 生徒会公式プラットフォーム</strong>
-        <p style="margin:6px 0 0;font-size:0.8rem;">声を、集めるだけで終わらせない。</p>
-      </div>
-      <div class="footer-links">
-        <a href="index.html">トップ</a>
-        <a href="newsroom.html">お知らせ</a>
-        <a href="events.html">イベント</a>
-        <a href="progress.html">活動の進捗</a>
-        <a href="petitions.html">提案・署名</a>
-        <a href="feedback.html">意見・質問</a>
-        <a href="school-rules.html">校内のきまり</a>
-        <a href="privacy.html">プライバシー・利用上の注意</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>掲載内容および各機能の運用は、学校の確認・承認を経て決定します。</span>
-      <span>© 橘中学校 生徒会</span>
-    </div>
-  </div>
-</footer>
-<script type="module" src="site.js"></script>
-<script type="module">
-  import { Backend, formatDate } from "./js/firebase-service.js";
-  import { escapeHtml } from "./site.js";
-
-  let allPetitions = [];
-  let selectedCat = "all";
-  let signedMap = {};
-
-  async function refreshSignedStatus(user) {
-    signedMap = {};
-    if (!user) return;
-    for (const p of allPetitions) {
-      signedMap[p.id] = await Backend.hasUserSigned(p.id, user.uid);
-    }
-  }
-
-  function renderPetitions() {
-    const container = document.getElementById("petitionsListContainer");
-    const user = window.__TACHIBANA_USER__;
-    const list = allPetitions.filter((p) => selectedCat === "all" || p.category === selectedCat);
-
-    if (list.length === 0) {
-      container.className = "";
-      container.innerHTML = `<div class="empty-state"><h3>現在募集中の提案はありません</h3><p>生徒からの新しい提案が承認・公開されると、ここに署名状況とあわせて表示されます。</p></div>`;
-      return;
-    }
-
-    container.className = "card-grid-2";
-    container.innerHTML = list.map((p) => {
-      const count = Number(p.signatureCount || 0);
-      const target = Math.max(1, Number(p.targetCount || 30));
-      const pct = Math.min(100, Math.round((count / target) * 100));
-      const alreadySigned = Boolean(signedMap[p.id]);
-      const isClosed = p.status === "closed" || p.status === "completed";
-
-      let actionHtml = "";
-      if (isClosed) {
-        actionHtml = `<button class="btn btn-secondary btn-sm" disabled>募集終了</button>`;
-      } else if (!user) {
-        actionHtml = `<a class="btn btn-secondary btn-sm" href="login.html">ログインして署名する</a>`;
-      } else if (alreadySigned) {
-        actionHtml = `<button class="btn btn-secondary btn-sm" disabled>署名済み</button>`;
-      } else {
-        actionHtml = `<button class="btn btn-primary btn-sm" data-sign-id="${escapeHtml(p.id)}">この提案に賛同（署名）する</button>`;
-      }
-
-      return `
-        <article class="card">
-          <div class="card-meta">
-            <span class="badge badge-accent">${escapeHtml(p.category || "学校生活")}</span>
-            <span>提案日: ${formatDate(p.createdAt)}</span>
-            <span>提案者: ${escapeHtml(p.proposerDisplayName || "非公開")}</span>
-          </div>
-          <h3>${escapeHtml(p.title)}</h3>
-          <p style="white-space:pre-wrap;margin-bottom:14px;">${escapeHtml(p.description || "")}</p>
-          <div style="margin-top:auto;">
-            <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:600;">
-              <span>現在の賛同数: <strong>${count}人</strong></span>
-              <span>目標: ${target}人（${pct}%）</span>
-            </div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%;"></div></div>
-            <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;">
-              <span class="badge ${count >= target ? "badge-success" : ""}">${count >= target ? "目標達成・検討対象" : "賛同募集中"}</span>
-              ${actionHtml}
-            </div>
-          </div>
-        </article>
-      `;
-    }).join("");
-
-    container.querySelectorAll("[data-sign-id]").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        const pid = btn.getAttribute("data-sign-id");
-        const u = window.__TACHIBANA_USER__;
-        if (!u) return;
-        btn.disabled = true;
-        btn.textContent = "処理中...";
-        try {
-          await Backend.signPetition(pid, u.uid);
-          allPetitions = await Backend.getPublicPetitions();
-          await refreshSignedStatus(u);
-          renderPetitions();
-        } catch (err) {
-          alert(err.message || "署名処理に失敗しました。");
-          btn.disabled = false;
-          btn.textContent = "この提案に賛同（署名）する";
-        }
-      });
-    });
-  }
-
-  // 新規投稿フォーム制御
-  const newBox = document.getElementById("newPetitionBox");
-  document.getElementById("toggleNewPetitionBtn").addEventListener("click", () => {
-    const isHidden = newBox.style.display === "none";
-    newBox.style.display = isHidden ? "block" : "none";
-    const u = window.__TACHIBANA_USER__;
-    const authNotice = document.getElementById("petitionFormAuthNotice");
-    if (!u) {
-      authNotice.style.display = "block";
-      authNotice.innerHTML = `提案を投稿するにはログインが必要です。<a href="login.html" style="text-decoration:underline;font-weight:600;">ログインページへ移動</a>`;
-    } else {
-      authNotice.style.display = "none";
-    }
-  });
-
-  document.getElementById("cancelPetitionBtn").addEventListener("click", () => {
-    newBox.style.display = "none";
-  });
-
-  document.getElementById("petitionCreateForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const u = window.__TACHIBANA_USER__;
-    const profile = window.__TACHIBANA_PROFILE__;
-    const msgEl = document.getElementById("petFormMessage");
-    if (!u) {
-      msgEl.style.color = "var(--status-danger)";
-      msgEl.textContent = "ログインしてから送信してください。";
-      return;
-    }
-    try {
-      await Backend.createPetition({
-        title: document.getElementById("petTitle").value,
-        category: document.getElementById("petCategory").value,
-        description: document.getElementById("petDesc").value,
-        targetCount: document.getElementById("petTarget").value,
-        showProposerName: document.getElementById("petShowName").checked,
-        proposerName: profile?.displayName || "",
-        userUid: u.uid
-      });
-      msgEl.style.color = "var(--status-success)";
-      msgEl.textContent = "提案を受け付けました。生徒会での確認後に公開されます。";
-      e.target.reset();
-    } catch (err) {
-      msgEl.style.color = "var(--status-danger)";
-      msgEl.textContent = err.message || "送信に失敗しました。";
-    }
-  });
-
-  document.querySelectorAll("#petitionCatTabs .filter-tab").forEach((tab) => {
-    tab.addEventListener("click", () => {
-      document.querySelectorAll("#petitionCatTabs .filter-tab").forEach((t) => t.classList.remove("active"));
-      tab.classList.add("active");
-      selectedCat = tab.getAttribute("data-cat");
-      renderPetitions();
-    });
-  });
-
-  document.addEventListener("tachibana:auth", async (e) => {
-    await refreshSignedStatus(e.detail.user);
-    renderPetitions();
-  });
-
-  (async () => {
-    allPetitions = await Backend.getPublicPetitions();
-    await refreshSignedStatus(window.__TACHIBANA_USER__);
-    renderPetitions();
-  })();
-</script>
+  <footer id="site-footer"></footer>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/pages.js"></script>
 </body>
 </html>
