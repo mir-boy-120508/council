@@ -1,125 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fbfbfd">
-  <meta name="description" content="橘中学校生徒会の公式プラットフォーム。お知らせ発信、意見受付、提案・署名、活動進捗の公開を一元化します。">
-  <title>ホーム — 橘中学校 生徒会公式プラットフォーム</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>橘中学校 生徒会公式プラットフォーム</title>
   <link rel="stylesheet" href="css/site.css">
 </head>
-<body data-page="home">
+<body>
   <header id="site-header"></header>
 
   <main>
     <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <p class="hero-kicker">橘中学校 生徒会公式プラットフォーム</p>
-          <h1>声を、<br>集めるだけで終わらせない。</h1>
-          <p class="hero-lead">
-            生徒会からのお知らせ、学校生活への意見や提案、オンライン署名、そして学校側との協議結果まで。生徒一人ひとりの声によって学校が変わっていく過程を共有する公式プラットフォームです。
-          </p>
-          <div class="hero-cta-group">
-            <a class="btn btn-primary" href="petitions.html">提案・署名を見る</a>
-            <a class="btn btn-secondary" href="feedback.html">意見・質問を送る</a>
-            <a class="btn btn-ghost" href="progress.html">活動の進捗を確認する ›</a>
-          </div>
+      <div class="container">
+        <span class="eyebrow">橘中学校 生徒会公式プラットフォーム</span>
+        <h1>声を、集めるだけで<br>終わらせない。</h1>
+        <p class="hero-lead">
+          全校生徒からの意見・提案の受付から、賛同署名の状況、生徒会と学校側との協議経過、最終的な結果報告までをひとつの場所で公開しています。
+        </p>
+        <div class="hero-actions">
+          <a href="petitions.html" class="btn btn-primary">提案・署名に参加する</a>
+          <a href="feedback.html" class="btn btn-secondary">意見・質問を送る</a>
+          <a href="progress.html" class="text-link">活動の進捗を見る →</a>
         </div>
-
-        <aside class="hero-summary-panel" aria-label="現在の公開状況">
-          <div class="hero-summary-title">
-            <span>現在の公開データ状況</span>
-            <span class="badge badge-accent">2026年度</span>
-          </div>
-          <div class="hero-metrics">
-            <div class="metric-item">
-              <span class="metric-value" id="metric-news">0件</span>
-              <span class="metric-label">公開中のお知らせ</span>
-            </div>
-            <div class="metric-item">
-              <span class="metric-value" id="metric-petitions">0件</span>
-              <span class="metric-label">募集中の提案・署名</span>
-            </div>
-            <div class="metric-item">
-              <span class="metric-value" id="metric-progress">0件</span>
-              <span class="metric-label">公開中の進捗案件</span>
-            </div>
-            <div class="metric-item">
-              <span class="metric-value" id="metric-events">0件</span>
-              <span class="metric-label">予定・開催中イベント</span>
-            </div>
-          </div>
-          <p class="hero-status-note" id="hero-schedule-note">アクセス状況を確認しています…</p>
-        </aside>
+        <div class="hero-status-line" id="hero-status-line"></div>
       </div>
     </section>
 
-    <section class="section reveal">
+    <section class="band">
       <div class="container">
-        <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+        <div class="section-head">
           <div>
-            <span class="section-eyebrow">お知らせ</span>
-            <h2 class="section-title">最新のお知らせ・活動報告</h2>
+            <h2>いま賛同できる提案</h2>
+            <p class="section-sub">一定数の賛同が集まった提案は、生徒会定例会議の正式議題として学校側との協議へ進みます。</p>
           </div>
-          <a class="btn btn-secondary" href="newsroom.html">すべてのお知らせを見る</a>
+          <a href="petitions.html" class="text-link">すべての提案・署名を見る →</a>
         </div>
-        <div id="home-latest-news"></div>
+        <div id="home-petitions"></div>
       </div>
     </section>
 
-    <section class="section section-alt reveal">
+    <section class="band band-subtle">
       <div class="container">
-        <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+        <div class="section-head">
           <div>
-            <span class="section-eyebrow">活動の進捗</span>
-            <h2 class="section-title">現在進行中の取り組み</h2>
-            <p class="section-desc">受付から検討、学校への提出・協議、最終結果の報告まで6段階で公開します。</p>
+            <h2>生徒会からの最新情報</h2>
+            <p class="section-sub">公式発表、委員会との連携報告、試行運用の案内を掲載しています。</p>
           </div>
-          <a class="btn btn-secondary" href="progress.html">進捗一覧を見る</a>
+          <a href="newsroom.html" class="text-link">お知らせ一覧へ →</a>
         </div>
-        <div id="home-active-progress"></div>
+        <div id="home-news"></div>
       </div>
     </section>
 
-    <section class="section reveal">
+    <section class="band">
       <div class="container">
-        <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+        <div class="section-head">
           <div>
-            <span class="section-eyebrow">イベント</span>
-            <h2 class="section-title">直近の発表会・行事案内</h2>
+            <h2>声のゆくえ・活動の進捗</h2>
+            <p class="section-sub">受付から学校協議・結果報告まで、6つの段階で現在の到達点を明示しています。</p>
           </div>
-          <a class="btn btn-secondary" href="events.html">イベントページへ</a>
+          <a href="progress.html" class="text-link">すべての進捗を見る →</a>
         </div>
-        <div id="home-upcoming-events"></div>
-      </div>
-    </section>
+        <div id="home-progress"></div>
 
-    <section class="section section-alt reveal">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-eyebrow">プラットフォームの活用方法</span>
-          <h2 class="section-title">知る、届ける、確かめる。</h2>
-          <p class="section-desc">目的に合わせて各窓口をご利用ください。</p>
-        </div>
-        <div class="editorial-grid-3">
-          <div class="editorial-item">
-            <span class="editorial-item-num">01 / 提案・署名</span>
-            <h3>みんなの賛同を集める</h3>
-            <p>学校生活をより良くする改善案を投稿し、在校生からのオンライン署名を集めることができます。</p>
-            <p style="margin-top:12px;"><a class="btn-ghost" href="petitions.html" style="padding-left:0;">提案・署名ページへ ›</a></p>
+        <div class="split-2" style="margin-top:64px;">
+          <div class="split-col">
+            <h3>直近の行事・イベント</h3>
+            <div id="home-events"></div>
+            <a href="events.html" class="text-link">イベント日程を見る →</a>
           </div>
-          <div class="editorial-item">
-            <span class="editorial-item-num">02 / 意見・質問</span>
-            <h3>日常の気づきを直接届ける</h3>
-            <p>学校生活の要望や生徒会への質問を非公開の窓口から送信できます。個人情報が一般公開されることはありません。</p>
-            <p style="margin-top:12px;"><a class="btn-ghost" href="feedback.html" style="padding-left:0;">意見・質問ページへ ›</a></p>
-          </div>
-          <div class="editorial-item">
-            <span class="editorial-item-num">03 / 校内のきまり</span>
-            <h3>承認済みの正式ルールを確認</h3>
-            <p>学校側が正式に確認・承認した最新の校内生活ルールを、いつでも分かりやすく確認できます。</p>
-            <p style="margin-top:12px;"><a class="btn-ghost" href="school-rules.html" style="padding-left:0;">校内のきまりを見る ›</a></p>
+          <div class="split-col">
+            <h3>校内のきまり</h3>
+            <p>教職員の正式承認を経て公開された現行の校内規定のみを掲載しています。疑問点がある場合は意見・質問窓口から改定提案が可能です。</p>
+            <a href="school-rules.html" class="text-link">承認済みのきまりを確認する →</a>
           </div>
         </div>
       </div>
@@ -127,9 +80,124 @@
   </main>
 
   <footer id="site-footer"></footer>
-  <script src="js/firebase-config.js"></script>
-  <script src="js/store.js"></script>
-  <script src="js/site.js"></script>
-  <script src="js/pages.js"></script>
+
+  <script type="module">
+    import { initCommonLayout, escapeHtml, statusDot } from './js/common.js';
+    import { store, PROGRESS_STAGES } from './js/store.js';
+    import { getCurrentUser } from './js/auth.js';
+    import { evaluateAccessPolicy } from './js/access-control.js';
+
+    initCommonLayout('index.html');
+
+    const user = getCurrentUser();
+    const state = store.getState();
+    const news = store.getPublishedNews();
+    const petitions = state.petitions.filter(p => p.status === 'active' || p.status === 'reviewing');
+    const progress = state.progress;
+    const events = state.events.filter(e => e.status === 'upcoming');
+    const policy = evaluateAccessPolicy(state.accessSchedule, user?.role || 'guest');
+
+    document.getElementById('hero-status-line').innerHTML = `
+      <div>${statusDot(policy.restricted ? '現在は授業時間帯のため閲覧専用です' : '現在、提案・署名および意見投稿を受け付けています', policy.restricted ? 'pending' : 'active')}</div>
+      <div class="hero-counts">
+        <span>受付中の提案 <strong>${petitions.length}</strong>件</span>
+        <span>進行中の課題 <strong>${progress.filter(p => p.status === 'in_progress').length}</strong>件</span>
+        <span>公開中のお知らせ <strong>${news.length}</strong>件</span>
+      </div>
+    `;
+
+    // 1. いま賛同できる提案
+    const petEl = document.getElementById('home-petitions');
+    petEl.innerHTML = petitions.length ? `
+      <div class="editorial-list">
+        ${petitions.slice(0, 3).map(p => {
+          const pct = Math.min(100, Math.round((p.signatureCount / p.goal) * 100));
+          return `
+            <div class="editorial-row">
+              <div class="editorial-meta">
+                ${statusDot(p.status === 'active' ? '署名受付中' : '生徒会検討中', p.status === 'active' ? 'accent' : 'pending')}
+                <span>${escapeHtml(p.category)}</span>
+                <span>賛同 ${p.signatureCount} / ${p.goal}名（${pct}%）</span>
+              </div>
+              <div>
+                <h3 class="editorial-title">${escapeHtml(p.title)}</h3>
+                <p class="editorial-excerpt">${escapeHtml(p.summary)}</p>
+              </div>
+              <a href="petitions.html" class="editorial-arrow">詳細・署名 →</a>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    ` : `
+      <div class="empty-notice">
+        <p class="empty-notice-title">現在、署名募集中の提案はありません</p>
+        <p class="empty-notice-desc">学校生活をより良くするための新しい提案は「提案・署名」ページからいつでも起案できます。</p>
+      </div>
+    `;
+
+    // 2. 最新情報
+    const newsEl = document.getElementById('home-news');
+    newsEl.innerHTML = news.length ? `
+      <div class="editorial-list">
+        ${news.slice(0, 3).map(n => `
+          <a href="newsroom.html" class="editorial-row is-clickable">
+            <div class="editorial-meta">
+              <span>${escapeHtml(n.publishedAt)}</span>
+              <span>${escapeHtml(n.category)}</span>
+            </div>
+            <div>
+              <h3 class="editorial-title">${escapeHtml(n.title)}</h3>
+              <p class="editorial-excerpt">${escapeHtml(n.summary)}</p>
+            </div>
+            <span class="editorial-arrow">読む →</span>
+          </a>
+        `).join('')}
+      </div>
+    ` : `
+      <div class="empty-notice">
+        <p class="empty-notice-title">公開中のお知らせはまだありません</p>
+        <p class="empty-notice-desc">生徒会からの公式発表や活動報告が公開されるとここに表示されます。</p>
+      </div>
+    `;
+
+    // 3. 活動の進捗
+    const progEl = document.getElementById('home-progress');
+    const stMap = {
+      not_started: { label: '未着手', tone: 'neutral' },
+      in_progress: { label: '対応中', tone: 'accent' },
+      completed: { label: '完了', tone: 'active' },
+      not_realized: { label: '実現しなかった', tone: 'pending' }
+    };
+    progEl.innerHTML = progress.length ? progress.slice(0, 2).map(p => {
+      const st = stMap[p.status] || { label: p.status, tone: 'neutral' };
+      return `
+        <article class="progress-item">
+          <div class="progress-meta-row">
+            ${statusDot(st.label, st.tone)}
+            <span>最終更新 ${escapeHtml(p.updatedAt)}</span>
+          </div>
+          <h3>${escapeHtml(p.title)}</h3>
+          <p class="editorial-excerpt">${escapeHtml(p.summary)}</p>
+          <div class="stage-track" aria-label="進捗段階">
+            ${PROGRESS_STAGES.map(s => {
+              const cls = s.id < p.currentStage ? 'is-done' : (s.id === p.currentStage ? 'is-current' : '');
+              return `<div class="stage-step ${cls}"><span class="stage-num">段階 ${s.id}</span>${s.label}</div>`;
+            }).join('')}
+          </div>
+        </article>
+      `;
+    }).join('') : `
+      <div class="empty-notice">
+        <p class="empty-notice-title">現在登録されている進捗案件はありません</p>
+        <p class="empty-notice-desc">生徒会定例会議で受理された提案や協議事項がここに公開されます。</p>
+      </div>
+    `;
+
+    // 4. 直近イベント
+    const evtEl = document.getElementById('home-events');
+    evtEl.innerHTML = events.length
+      ? events.slice(0, 2).map(ev => `<p><strong>${escapeHtml(ev.date)}</strong>　${escapeHtml(ev.title)}（${escapeHtml(ev.location)}）</p>`).join('')
+      : `<p>現在予定されている公開イベントはありません。</p>`;
+  </script>
 </body>
 </html>
