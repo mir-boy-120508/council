@@ -3,187 +3,61 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="生徒から出された提案や生徒会が進めている活動の進行状況を公開するページです。">
-  <title>活動の進捗 | 橘中学校 生徒会</title>
-  <link rel="stylesheet" href="site.css">
+  <meta name="theme-color" content="#fbfbfd">
+  <meta name="description" content="生徒から出された提案や生徒会活動の進行段階・学校との協議結果を公開します。">
+  <title>活動の進捗 — 橘中学校 生徒会公式プラットフォーム</title>
+  <link rel="stylesheet" href="css/site.css">
 </head>
-<body>
-<header class="site-header">
-  <div class="header-inner">
-    <a class="site-brand" href="index.html">
-      <span class="brand-mark">橘</span>
-      <span>橘中学校 <span class="brand-sub">生徒会</span></span>
-    </a>
-    <nav class="main-nav" aria-label="主要メニュー">
-      <ul>
-        <li><a href="index.html">トップ</a></li>
-        <li><a href="newsroom.html">お知らせ</a></li>
-        <li><a href="events.html">イベント</a></li>
-        <li><a href="progress.html">活動の進捗</a></li>
-        <li><a href="petitions.html">提案・署名</a></li>
-        <li><a href="feedback.html">意見・質問</a></li>
-        <li><a href="school-rules.html">校内のきまり</a></li>
-      </ul>
-    </nav>
-    <div class="header-actions">
-      <div id="navAuthSlot"><a class="nav-action-btn" href="login.html">ログイン</a></div>
-      <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobileDrawer">メニュー</button>
-    </div>
-  </div>
-</header>
-<nav id="mobileDrawer" class="mobile-drawer" aria-label="スマートフォンメニュー">
-  <ul>
-    <li><a href="index.html">トップ</a></li>
-    <li><a href="newsroom.html">お知らせ</a></li>
-    <li><a href="events.html">イベント</a></li>
-    <li><a href="progress.html">活動の進捗</a></li>
-    <li><a href="petitions.html">提案・署名</a></li>
-    <li><a href="feedback.html">意見・質問</a></li>
-    <li><a href="school-rules.html">校内のきまり</a></li>
-  </ul>
-  <div id="mobileAuthSlot" class="mobile-drawer-actions">
-    <a class="nav-action-btn" href="login.html">ログイン</a>
-  </div>
-</nav>
-<main>
-  <nav class="breadcrumb" aria-label="現在位置">
-  <div class="container">
-    <ol>
-      <li><a href="index.html">トップ</a></li>
-      <li aria-current="page">活動の進捗</li>
-    </ol>
-  </div>
-</nav>
-  <section class="page-header">
-    <div class="container">
-      <span class="page-category-tag">透明性の確保・経過報告</span>
-      <h1>活動の進捗</h1>
-      <p class="page-lead">「声を、集めるだけで終わらせない。」生徒から出された提案や生徒会の取り組みが、現在どの段階にあるのかと、その結果・理由を公開します。</p>
-    </div>
-  </section>
+<body data-page="progress">
+  <header id="site-header"></header>
 
-  <section class="section">
+  <main>
     <div class="container">
-      <div class="notice-banner">
-        <strong>進行段階の基準：</strong>
-        1. 受付 → 2. 署名・賛同の募集 → 3. 生徒会での検討 → 4. 学校への提出 → 5. 学校との協議 → 6. 結果の報告（実現しなかった場合も理由を説明します）
+      <nav class="breadcrumb" aria-label="現在位置">
+        <ol>
+          <li><a href="index.html">ホーム</a></li>
+          <li aria-current="page">活動の進捗</li>
+        </ol>
+      </nav>
+    </div>
+
+    <section class="page-header">
+      <div class="container">
+        <p class="page-header-eyebrow">活動プロセスの可視化</p>
+        <h1>活動の進捗</h1>
+        <p class="page-header-lead">受付した提案が現在どの段階にあり、学校側とどのような協議を行っているかを公開します。実現しなかった場合も理由を説明します。</p>
       </div>
+    </section>
 
-      <div class="filter-bar">
-        <div class="filter-tabs" id="progressFilters">
-          <button class="filter-tab active" data-status="all">すべて</button>
-          <button class="filter-tab" data-status="対応中">対応中</button>
-          <button class="filter-tab" data-status="未着手">未着手</button>
-          <button class="filter-tab" data-status="完了">完了</button>
-          <button class="filter-tab" data-status="実現しなかった">実現しなかった</button>
+    <section class="section">
+      <div class="container">
+        <div class="toolbar">
+          <div class="filter-pills" role="group" aria-label="対応状況絞り込み">
+            <button type="button" class="filter-pill active" data-prg-status="all">すべて</button>
+            <button type="button" class="filter-pill" data-prg-status="in_progress">対応中</button>
+            <button type="button" class="filter-pill" data-prg-status="completed">完了</button>
+            <button type="button" class="filter-pill" data-prg-status="not_realized">実現しなかった</button>
+            <button type="button" class="filter-pill" data-prg-status="not_started">未着手</button>
+          </div>
+        </div>
+
+        <div id="progress-list-container"></div>
+
+        <div class="related-links">
+          <p class="related-links-title">関連ページ</p>
+          <div class="related-links-grid">
+            <a class="related-link-item" href="petitions.html"><span>新しい提案・署名を見る</span><span>›</span></a>
+            <a class="related-link-item" href="feedback.html"><span>意見・質問を送る</span><span>›</span></a>
+          </div>
         </div>
       </div>
+    </section>
+  </main>
 
-      <div id="progressListContainer" class="loading-state">活動の進捗状況を読み込んでいます...</div>
-    </div>
-  </section>
-
-  <section class="related-links">
-    <div class="container">
-      <div class="related-grid">
-        <a class="related-item" href="petitions.html"><span>提案・署名を見る</span><span>→</span></a>
-        <a class="related-item" href="feedback.html"><span>意見・質問を送る</span><span>→</span></a>
-        <a class="related-item" href="newsroom.html"><span>活動報告を読む</span><span>→</span></a>
-      </div>
-    </div>
-  </section>
-</main>
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <strong>橘中学校 生徒会公式プラットフォーム</strong>
-        <p style="margin:6px 0 0;font-size:0.8rem;">声を、集めるだけで終わらせない。</p>
-      </div>
-      <div class="footer-links">
-        <a href="index.html">トップ</a>
-        <a href="newsroom.html">お知らせ</a>
-        <a href="events.html">イベント</a>
-        <a href="progress.html">活動の進捗</a>
-        <a href="petitions.html">提案・署名</a>
-        <a href="feedback.html">意見・質問</a>
-        <a href="school-rules.html">校内のきまり</a>
-        <a href="privacy.html">プライバシー・利用上の注意</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>掲載内容および各機能の運用は、学校の確認・承認を経て決定します。</span>
-      <span>© 橘中学校 生徒会</span>
-    </div>
-  </div>
-</footer>
-<script type="module" src="site.js"></script>
-<script type="module">
-  import { Backend, STAGE_LABELS, formatDate } from "./js/firebase-service.js";
-  import { escapeHtml } from "./site.js";
-
-  let allItems = [];
-  let currentStatus = "all";
-
-  function statusBadgeClass(st) {
-    if (st === "完了") return "badge badge-success";
-    if (st === "対応中") return "badge badge-accent";
-    if (st === "実現しなかった") return "badge badge-danger";
-    return "badge badge-warning";
-  }
-
-  function renderProgress() {
-    const container = document.getElementById("progressListContainer");
-    const list = allItems.filter((item) => currentStatus === "all" || item.status === currentStatus);
-
-    if (list.length === 0) {
-      container.innerHTML = `<div class="empty-state"><h3>現在表示できる進捗案件はありません</h3><p>生徒会での検討や学校との協議が進められている公開案件が登録されると、ここに進行段階と説明が表示されます。</p></div>`;
-      return;
-    }
-
-    container.innerHTML = `<div style="display:flex;flex-direction:column;gap:20px;">` + list.map((item) => {
-      const stageNum = Math.min(6, Math.max(1, Number(item.currentStage || 1)));
-      const stepperHtml = STAGE_LABELS.map((label, idx) => {
-        const step = idx + 1;
-        let cls = "stage-step";
-        if (step < stageNum) cls += " done";
-        else if (step === stageNum) cls += " current";
-        return `<div class="${cls}">${escapeHtml(label)}</div>`;
-      }).join("");
-
-      return `
-        <article class="card">
-          <div class="card-meta">
-            <span class="${statusBadgeClass(item.status)}">${escapeHtml(item.status || "対応中")}</span>
-            <span>最終更新日: ${formatDate(item.updatedAt)}</span>
-          </div>
-          <h3>${escapeHtml(item.title)}</h3>
-          <p>${escapeHtml(item.description || "")}</p>
-          <div class="stage-tracker" aria-label="進行段階">${stepperHtml}</div>
-          ${item.explanation ? `
-            <div style="margin-top:12px;padding:14px 16px;background:var(--bg-secondary);border-radius:8px;font-size:0.9rem;">
-              <strong>生徒会からの説明・結果理由：</strong>
-              <p style="margin:6px 0 0;white-space:pre-wrap;">${escapeHtml(item.explanation)}</p>
-            </div>
-          ` : ""}
-        </article>
-      `;
-    }).join("") + `</div>`;
-  }
-
-  document.querySelectorAll("#progressFilters .filter-tab").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll("#progressFilters .filter-tab").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      currentStatus = btn.getAttribute("data-status");
-      renderProgress();
-    });
-  });
-
-  (async () => {
-    allItems = await Backend.getPublicProgress();
-    renderProgress();
-  })();
-</script>
+  <footer id="site-footer"></footer>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/pages.js"></script>
 </body>
 </html>
