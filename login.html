@@ -3,181 +3,71 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ログイン・アカウント | 橘中学校 生徒会</title>
-  <link rel="stylesheet" href="site.css">
+  <meta name="theme-color" content="#fbfbfd">
+  <meta name="description" content="橘中学校生徒会公式プラットフォーム ログイン画面">
+  <title>ログイン — 橘中学校 生徒会公式プラットフォーム</title>
+  <link rel="stylesheet" href="css/site.css">
 </head>
-<body>
-<header class="site-header">
-  <div class="header-inner">
-    <a class="site-brand" href="index.html">
-      <span class="brand-mark">橘</span>
-      <span>橘中学校 <span class="brand-sub">生徒会</span></span>
-    </a>
-    <nav class="main-nav" aria-label="主要メニュー">
-      <ul>
-        <li><a href="index.html">トップ</a></li>
-        <li><a href="newsroom.html">お知らせ</a></li>
-        <li><a href="events.html">イベント</a></li>
-        <li><a href="progress.html">活動の進捗</a></li>
-        <li><a href="petitions.html">提案・署名</a></li>
-        <li><a href="feedback.html">意見・質問</a></li>
-        <li><a href="school-rules.html">校内のきまり</a></li>
-      </ul>
-    </nav>
-    <div class="header-actions">
-      <div id="navAuthSlot"><a class="nav-action-btn" href="login.html">ログイン</a></div>
-      <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobileDrawer">メニュー</button>
-    </div>
-  </div>
-</header>
-<nav id="mobileDrawer" class="mobile-drawer" aria-label="スマートフォンメニュー">
-  <ul>
-    <li><a href="index.html">トップ</a></li>
-    <li><a href="newsroom.html">お知らせ</a></li>
-    <li><a href="events.html">イベント</a></li>
-    <li><a href="progress.html">活動の進捗</a></li>
-    <li><a href="petitions.html">提案・署名</a></li>
-    <li><a href="feedback.html">意見・質問</a></li>
-    <li><a href="school-rules.html">校内のきまり</a></li>
-  </ul>
-  <div id="mobileAuthSlot" class="mobile-drawer-actions">
-    <a class="nav-action-btn" href="login.html">ログイン</a>
-  </div>
-</nav>
-<main>
-  <nav class="breadcrumb" aria-label="現在位置">
-  <div class="container">
-    <ol>
-      <li><a href="index.html">トップ</a></li>
-      <li aria-current="page">ログイン・アカウント</li>
-    </ol>
-  </div>
-</nav>
-  <section class="page-header">
+<body data-page="login">
+  <header id="site-header"></header>
+
+  <main>
     <div class="container">
-      <span class="page-category-tag">本人確認・認証</span>
-      <h1>ログイン・アカウント</h1>
-      <p class="page-lead">オンライン署名、意見・質問の送信、および生徒会役員・教職員の管理画面を利用するためにログインします。</p>
+      <nav class="breadcrumb" aria-label="現在位置">
+        <ol>
+          <li><a href="index.html">ホーム</a></li>
+          <li aria-current="page">ログイン</li>
+        </ol>
+      </nav>
     </div>
-  </section>
 
-  <section class="section">
-    <div class="container" style="max-width:520px;">
-      <!-- 未ログイン時フォーム -->
-      <div id="loginBox" class="form-card">
-        <h2 style="margin:0 0 16px;font-size:1.2rem;">学校アカウントでログイン</h2>
-        <div id="firebaseNotReadyNotice" class="notice-banner" style="display:none;border-left-color:var(--status-warning);">
-          <strong>準備中のお知らせ：</strong>現在、Firebase認証の接続設定が未完了のためログイン機能は待機状態です。学校側の承認・設定完了後に利用可能になります。
-        </div>
-        <form id="loginForm">
+    <section class="page-header">
+      <div class="container">
+        <p class="page-header-eyebrow">本人確認・権限認証</p>
+        <h1>ログイン</h1>
+        <p class="page-header-lead">署名・提案の投稿、意見・質問の送信、および生徒会役員・教職員の管理画面を利用するためにログインします。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container" style="max-width:640px;">
+        <div id="firebase-mode-indicator"></div>
+        <div id="login-current-status"></div>
+
+        <form id="login-form" class="form-panel">
+          <h2 style="font-size:1.2rem; margin:0 0 18px;">アカウントを選択してログイン</h2>
           <div class="form-group">
-            <label for="loginId">生徒ID または メールアドレス</label>
-            <input type="text" id="loginId" class="form-control" required autocomplete="username" placeholder="例：s2026001">
-            <p class="form-help">学校から配布されたアカウントIDを入力してください。</p>
+            <label class="form-label" for="login-account-select">検証・テスト用アカウント（役割別）</label>
+            <select class="form-control" id="login-account-select"></select>
+            <p class="form-hint">本番Firebase接続時は、学校発行のGoogle Workspaceアカウントまたは独自認証IDによるFirebase Authenticationへ切り替わります。</p>
           </div>
           <div class="form-group">
-            <label for="loginPassword">パスワード</label>
-            <input type="password" id="loginPassword" class="form-control" required autocomplete="current-password">
+            <label class="checkbox-row">
+              <input type="checkbox" id="login-persist">
+              <span>ブラウザを閉じてもログイン状態を維持する（共用端末ではチェックを外してください）</span>
+            </label>
           </div>
-          <div id="loginErrorMsg" style="color:var(--status-danger);font-size:0.875rem;margin-bottom:12px;"></div>
-          <button type="submit" id="loginSubmitBtn" class="btn btn-primary" style="width:100%;">ログインする</button>
+          <button type="submit" class="btn btn-primary" style="width:100%;">ログインする</button>
         </form>
-      </div>
 
-      <!-- ログイン済みプロフィール表示 -->
-      <div id="accountBox" class="form-card" style="display:none;">
-        <h2 style="margin:0 0 12px;font-size:1.2rem;">ログイン中のアカウント情報</h2>
-        <dl style="display:grid;grid-template-columns:120px 1fr;gap:10px;font-size:0.92rem;margin:0 0 20px;">
-          <dt style="color:var(--text-muted);">表示名</dt><dd id="accName" style="margin:0;font-weight:600;"></dd>
-          <dt style="color:var(--text-muted);">権限区分</dt><dd id="accRole" style="margin:0;"></dd>
-          <dt style="color:var(--text-muted);">アカウントID</dt><dd id="accEmail" style="margin:0;"></dd>
-        </dl>
-        <div style="display:flex;flex-wrap:wrap;gap:10px;">
-          <a id="goAdminBtn" href="admin.html" class="btn btn-primary" style="display:none;">管理画面を開く</a>
-          <button id="logoutBtn" class="btn btn-secondary">ログアウト</button>
+        <div class="form-panel" style="margin-top:32px; background:var(--bg-secondary);">
+          <h3 style="font-size:1.05rem; margin:0 0 10px;">動作検証用データの切り替え（開発・検収テスト用）</h3>
+          <p style="font-size:0.875rem; color:var(--text-secondary); margin:0 0 16px;">
+            本番初期状態では、架空の情報を事実として掲載しないため全項目が「0件（空状態）」になっています。記事一覧・署名・進捗・校則承認などの全機能をテストしたい場合は、サンプルデータを読み込んで確認できます。
+          </p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button type="button" class="btn btn-secondary" id="login-load-sample">動作確認用サンプルデータを読み込む</button>
+            <button type="button" class="btn btn-ghost" id="login-clear-sample">本番初期状態（空データ）に戻す</button>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-</main>
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <strong>橘中学校 生徒会公式プラットフォーム</strong>
-        <p style="margin:6px 0 0;font-size:0.8rem;">声を、集めるだけで終わらせない。</p>
-      </div>
-      <div class="footer-links">
-        <a href="index.html">トップ</a>
-        <a href="newsroom.html">お知らせ</a>
-        <a href="events.html">イベント</a>
-        <a href="progress.html">活動の進捗</a>
-        <a href="petitions.html">提案・署名</a>
-        <a href="feedback.html">意見・質問</a>
-        <a href="school-rules.html">校内のきまり</a>
-        <a href="privacy.html">プライバシー・利用上の注意</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>掲載内容および各機能の運用は、学校の確認・承認を経て決定します。</span>
-      <span>© 橘中学校 生徒会</span>
-    </div>
-  </div>
-</footer>
-<script type="module" src="site.js"></script>
-<script type="module">
-  import { Backend } from "./js/firebase-service.js";
+    </section>
+  </main>
 
-  const ROLE_LABELS = {
-    student: "一般生徒",
-    officer: "生徒会役員",
-    teacher: "教職員",
-    admin: "システム管理者"
-  };
-
-  if (!Backend.isReady()) {
-    document.getElementById("firebaseNotReadyNotice").style.display = "block";
-    document.getElementById("loginSubmitBtn").disabled = true;
-  }
-
-  document.addEventListener("tachibana:auth", (e) => {
-    const { user, profile } = e.detail;
-    const loginBox = document.getElementById("loginBox");
-    const accountBox = document.getElementById("accountBox");
-
-    if (user) {
-      loginBox.style.display = "none";
-      accountBox.style.display = "block";
-      const role = profile?.role || "student";
-      document.getElementById("accName").textContent = profile?.displayName || "利用者";
-      document.getElementById("accRole").textContent = ROLE_LABELS[role] || role;
-      document.getElementById("accEmail").textContent = user.email || user.uid;
-      if (["officer", "teacher", "admin"].includes(role)) {
-        document.getElementById("goAdminBtn").style.display = "inline-flex";
-      }
-    } else {
-      loginBox.style.display = "block";
-      accountBox.style.display = "none";
-    }
-  });
-
-  document.getElementById("loginForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const errEl = document.getElementById("loginErrorMsg");
-    errEl.textContent = "";
-    try {
-      await Backend.login(
-        document.getElementById("loginId").value,
-        document.getElementById("loginPassword").value
-      );
-    } catch (err) {
-      errEl.textContent = "ログインに失敗しました。ID・パスワードを確認してください。";
-    }
-  });
-
-  document.getElementById("logoutBtn").addEventListener("click", async () => {
-    await Backend.logout();
-  });
-</script>
+  <footer id="site-footer"></footer>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/pages.js"></script>
 </body>
 </html>
