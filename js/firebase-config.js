@@ -1,20 +1,30 @@
-// Firebase プロジェクト設定ファイル
-// 本番環境への切り替え時は、Firebaseコンソールから取得したWebアプリ設定値に置き換えてください。
-// ※秘密鍵（Admin SDK用JSON等）は絶対にここに記載しないでください。
+/**
+ * 橘中学校 生徒会公式プラットフォーム — Firebase設定ファイル
+ *
+ * 【重要】
+ * 1. 本番運用を開始する際は、Firebase Console から取得した Web アプリ設定値を
+ *    下記の TACHIBANA_FIREBASE_CONFIG に設定してください。
+ * 2. サービスアカウント秘密鍵はフロントエンドに絶対に配置しないでください。
+ * 3. 未設定（初期状態）の場合、システムは自動的に「ローカル検証モード」で動作し、
+ *    学校承認前の動作テストを安全に行えます。
+ */
 
-export const firebaseConfig = {
+window.TACHIBANA_FIREBASE_CONFIG = {
   apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  authDomain: "tachibana-student-council.firebaseapp.com",
+  projectId: "tachibana-student-council",
+  storageBucket: "tachibana-student-council.appspot.com",
+  messagingSenderId: "000000000000",
+  appId: "1:000000000000:web:0000000000000000"
 };
 
-// 設定値が未入力の場合は自動的に未接続・準備モード（デモデータ不使用・空状態表示）として安全に動作します
-export const isFirebaseConfigured = Boolean(
-  firebaseConfig.apiKey &&
-  !firebaseConfig.apiKey.startsWith("YOUR_") &&
-  firebaseConfig.projectId &&
-  !firebaseConfig.projectId.startsWith("YOUR_")
-);
+window.isFirebaseConfigured = function () {
+  const cfg = window.TACHIBANA_FIREBASE_CONFIG;
+  return Boolean(
+    cfg &&
+    cfg.apiKey &&
+    cfg.apiKey !== "YOUR_FIREBASE_API_KEY" &&
+    cfg.projectId &&
+    cfg.projectId !== "tachibana-student-council"
+  );
+};
