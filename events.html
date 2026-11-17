@@ -3,180 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="橘中学校 生徒会が実施する特別な発表やイベントの告知・アーカイブページです。">
-  <title>イベント | 橘中学校 生徒会</title>
-  <link rel="stylesheet" href="site.css">
+  <meta name="theme-color" content="#0b0d12">
+  <meta name="description" content="橘中学校生徒会が開催する特別な発表や行事の案内・記録。">
+  <title>イベント — 橘中学校 生徒会公式プラットフォーム</title>
+  <link rel="stylesheet" href="css/site.css">
 </head>
-<body class="theme-dark">
-<header class="site-header">
-  <div class="header-inner">
-    <a class="site-brand" href="index.html">
-      <span class="brand-mark">橘</span>
-      <span>橘中学校 <span class="brand-sub">生徒会</span></span>
-    </a>
-    <nav class="main-nav" aria-label="主要メニュー">
-      <ul>
-        <li><a href="index.html">トップ</a></li>
-        <li><a href="newsroom.html">お知らせ</a></li>
-        <li><a href="events.html">イベント</a></li>
-        <li><a href="progress.html">活動の進捗</a></li>
-        <li><a href="petitions.html">提案・署名</a></li>
-        <li><a href="feedback.html">意見・質問</a></li>
-        <li><a href="school-rules.html">校内のきまり</a></li>
-      </ul>
-    </nav>
-    <div class="header-actions">
-      <div id="navAuthSlot"><a class="nav-action-btn" href="login.html">ログイン</a></div>
-      <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobileDrawer">メニュー</button>
-    </div>
-  </div>
-</header>
-<nav id="mobileDrawer" class="mobile-drawer" aria-label="スマートフォンメニュー">
-  <ul>
-    <li><a href="index.html">トップ</a></li>
-    <li><a href="newsroom.html">お知らせ</a></li>
-    <li><a href="events.html">イベント</a></li>
-    <li><a href="progress.html">活動の進捗</a></li>
-    <li><a href="petitions.html">提案・署名</a></li>
-    <li><a href="feedback.html">意見・質問</a></li>
-    <li><a href="school-rules.html">校内のきまり</a></li>
-  </ul>
-  <div id="mobileAuthSlot" class="mobile-drawer-actions">
-    <a class="nav-action-btn" href="login.html">ログイン</a>
-  </div>
-</nav>
-<main>
-  <nav class="breadcrumb" aria-label="現在位置">
-  <div class="container">
-    <ol>
-      <li><a href="index.html">トップ</a></li>
-      <li aria-current="page">イベント</li>
-    </ol>
-  </div>
-</nav>
-  <section class="page-header">
-    <div class="container">
-      <span class="page-category-tag">特別発表・行事案内</span>
-      <h1>イベント</h1>
-      <p class="page-lead">生徒会が開催する全校集会での特別発表、生徒総会、学校行事に関する案内と過去の記録を掲載します。</p>
-    </div>
-  </section>
+<body class="theme-dark" data-page="events">
+  <header id="site-header"></header>
 
-  <section class="section">
+  <main>
     <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>開催予定・実施中のイベント</h2>
-          <p>開催日時や状態に応じて最新の案内を表示します。</p>
+      <nav class="breadcrumb" aria-label="現在位置">
+        <ol>
+          <li><a href="index.html">ホーム</a></li>
+          <li aria-current="page">イベント</li>
+        </ol>
+      </nav>
+    </div>
+
+    <section class="page-header">
+      <div class="container">
+        <p class="page-header-eyebrow">生徒会 特別発表・行事案内</p>
+        <h1>イベント</h1>
+        <p class="page-header-lead">生徒総会、文化発表会企画、全校向け特別発表の開催日時と概要、終了後の記録アーカイブを掲載します。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">開催情報</span>
+          <h2 class="section-title">開催予定・開催中のイベント</h2>
         </div>
-      </div>
-      <div id="upcomingEventsContainer" class="loading-state">イベント情報を読み込んでいます...</div>
-    </div>
-  </section>
+        <div id="events-active-container"></div>
 
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2>終了したイベントのアーカイブ</h2>
-          <p>これまでに実施したイベントの概要や発表記録です。</p>
+        <div class="section-header" style="margin-top:64px;">
+          <span class="section-eyebrow">記録アーカイブ</span>
+          <h2 class="section-title">終了したイベントの記録</h2>
         </div>
-      </div>
-      <div id="archiveEventsContainer" class="loading-state">アーカイブを確認しています...</div>
-    </div>
-  </section>
+        <div id="events-archive-container"></div>
 
-  <section class="related-links">
-    <div class="container">
-      <div class="related-grid">
-        <a class="related-item" href="newsroom.html"><span>最新のお知らせを見る</span><span>→</span></a>
-        <a class="related-item" href="progress.html"><span>活動の進捗を確認する</span><span>→</span></a>
-        <a class="related-item" href="feedback.html"><span>行事への意見を送る</span><span>→</span></a>
-      </div>
-    </div>
-  </section>
-</main>
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <strong>橘中学校 生徒会公式プラットフォーム</strong>
-        <p style="margin:6px 0 0;font-size:0.8rem;">声を、集めるだけで終わらせない。</p>
-      </div>
-      <div class="footer-links">
-        <a href="index.html">トップ</a>
-        <a href="newsroom.html">お知らせ</a>
-        <a href="events.html">イベント</a>
-        <a href="progress.html">活動の進捗</a>
-        <a href="petitions.html">提案・署名</a>
-        <a href="feedback.html">意見・質問</a>
-        <a href="school-rules.html">校内のきまり</a>
-        <a href="privacy.html">プライバシー・利用上の注意</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>掲載内容および各機能の運用は、学校の確認・承認を経て決定します。</span>
-      <span>© 橘中学校 生徒会</span>
-    </div>
-  </div>
-</footer>
-<script type="module" src="site.js"></script>
-<script type="module">
-  import { Backend, formatDateTime } from "./js/firebase-service.js";
-  import { escapeHtml } from "./site.js";
+        <div class="alert-box" style="margin-top:48px;">
+          <strong>配信機能に関するご案内：</strong>現在のバージョンでは開催日時・概要・関連情報の掲載およびアーカイブ記録に対応しています。事前収録動画の同時再生（プレミア公開）やライブ映像配信は将来的な拡張機能として検討中です。また、Webサイトを利用できない生徒にも情報が届くよう、重要な発表は校内放送や掲示と併用します。
+        </div>
 
-  function getEventStatus(ev) {
-    if (ev.archive || ev.status === "ended") return { code: "ended", label: "終了", badge: "badge" };
-    if (ev.status === "live") return { code: "live", label: "開催中", badge: "badge badge-success" };
-    return { code: "upcoming", label: "開催予定", badge: "badge badge-accent" };
-  }
-
-  (async () => {
-    const upEl = document.getElementById("upcomingEventsContainer");
-    const arcEl = document.getElementById("archiveEventsContainer");
-    const events = await Backend.getPublishedEvents();
-
-    const activeList = events.filter((e) => getEventStatus(e).code !== "ended");
-    const endedList = events.filter((e) => getEventStatus(e).code === "ended");
-
-    if (activeList.length === 0) {
-      upEl.className = "";
-      upEl.innerHTML = `<div class="empty-state"><h3>現在予定されているイベントはありません</h3><p>新しいイベントや特別発表の開催が決まり次第、開催日時と概要をこちらに掲載します。</p></div>`;
-    } else {
-      upEl.className = "card-grid-2";
-      upEl.innerHTML = activeList.map((ev) => {
-        const st = getEventStatus(ev);
-        return `
-          <article class="card">
-            <div class="card-meta">
-              <span class="${st.badge}">${st.label}</span>
-              <span>開催日時: ${formatDateTime(ev.startAt)}</span>
-            </div>
-            ${ev.imageUrl ? `<img src="${escapeHtml(ev.imageUrl)}" alt="" style="width:100%;max-height:220px;object-fit:cover;border-radius:10px;margin-bottom:14px;">` : ""}
-            <h3>${escapeHtml(ev.title)}</h3>
-            <p style="white-space:pre-wrap;">${escapeHtml(ev.description || "")}</p>
-          </article>
-        `;
-      }).join("");
-    }
-
-    if (endedList.length === 0) {
-      arcEl.className = "";
-      arcEl.innerHTML = `<div class="empty-state"><h3>過去のイベント記録はまだありません</h3><p>終了したイベントの記録が登録されると、ここにアーカイブとして公開されます。</p></div>`;
-    } else {
-      arcEl.className = "card-grid";
-      arcEl.innerHTML = endedList.map((ev) => `
-        <article class="card">
-          <div class="card-meta">
-            <span class="badge">終了</span>
-            <span>${formatDateTime(ev.startAt)}</span>
+        <div class="related-links">
+          <p class="related-links-title">関連ページ</p>
+          <div class="related-links-grid">
+            <a class="related-link-item" href="newsroom.html"><span>お知らせ・活動報告を見る</span><span>›</span></a>
+            <a class="related-link-item" href="progress.html"><span>活動の進捗を確認する</span><span>›</span></a>
           </div>
-          <h3>${escapeHtml(ev.title)}</h3>
-          <p>${escapeHtml(ev.description || "")}</p>
-        </article>
-      `).join("");
-    }
-  })();
-</script>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/pages.js"></script>
 </body>
 </html>
