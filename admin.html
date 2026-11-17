@@ -1,294 +1,194 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fbfbfd">
-  <meta name="description" content="橘中学校 生徒会・教職員専用 管理画面">
-  <title>管理画面 — 橘中学校 生徒会公式プラットフォーム</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理画面 | 橘中学校 生徒会公式プラットフォーム</title>
   <link rel="stylesheet" href="css/site.css">
   <link rel="stylesheet" href="css/admin.css">
 </head>
-<body data-page="admin">
+<body>
   <header id="site-header"></header>
 
-  <main>
-    <div id="admin-access-guard" class="container"></div>
+  <main id="admin-root">
+    <div class="container">
+      <div class="page-header" style="padding-bottom:28px;">
+        <span class="eyebrow">生徒会執行部・顧問教職員 ワークスペース</span>
+        <h1>プラットフォーム管理</h1>
+        <p id="admin-operator-meta" class="page-lead" style="font-size:0.9375rem;"></p>
+      </div>
+    </div>
 
-    <div id="admin-app" style="display:none;">
-      <section class="page-header" style="padding:28px 0;">
-        <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-          <div>
-            <p class="page-header-eyebrow" style="margin-bottom:4px;">運営管理コンソール</p>
-            <h1 style="font-size:1.75rem; margin:0;">生徒会・教職員 管理画面</h1>
+    <nav class="admin-subnav" aria-label="管理項目切り替え">
+      <div class="admin-subnav-inner">
+        <button type="button" class="admin-tab-btn active" data-tab="news">お知らせ <span class="admin-count" id="count-news"></span></button>
+        <button type="button" class="admin-tab-btn" data-tab="events">イベント <span class="admin-count" id="count-events"></span></button>
+        <button type="button" class="admin-tab-btn" data-tab="petitions">提案・署名 <span class="admin-count" id="count-petitions"></span></button>
+        <button type="button" class="admin-tab-btn" data-tab="feedback">意見・質問 <span class="admin-count" id="count-feedback"></span></button>
+        <button type="button" class="admin-tab-btn" data-tab="progress">活動の進捗 <span class="admin-count" id="count-progress"></span></button>
+        <button type="button" class="admin-tab-btn" data-tab="rules">校内ルール承認 <span class="admin-count" id="count-rules"></span></button>
+        <button type="button" class="admin-tab-btn" data-tab="users">アカウント・引き継ぎ <span class="admin-count" id="count-users"></span></button>
+        <button type="button" class="admin-tab-btn" data-tab="schedule">アクセス時間制限</button>
+        <button type="button" class="admin-tab-btn" data-tab="logs">操作履歴 <span class="admin-count" id="count-logs"></span></button>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- 1. お知らせ -->
+      <section class="admin-panel active" id="panel-news">
+        <div class="admin-bar">
+          <h2>お知らせ管理</h2>
+          <button type="button" class="btn btn-primary" data-toggle-drawer="drawer-news" data-default-label="＋ 新規お知らせを作成">＋ 新規お知らせを作成</button>
+        </div>
+        <div class="admin-drawer" id="drawer-news">
+          <div class="form-section">
+            <form id="form-admin-news">
+              <input type="hidden" name="id">
+              <div class="field"><label class="field-label">タイトル</label><input type="text" name="title" class="field-control" required></div>
+              <div class="field"><label class="field-label">カテゴリー</label><select name="category" class="field-control"><option value="公式発表">公式発表</option><option value="お知らせ">お知らせ</option><option value="活動報告">活動報告</option></select></div>
+              <div class="field"><label class="field-label">公開状態</label><select name="status" class="field-control"><option value="published">公開する</option><option value="draft">下書き保存</option></select></div>
+              <div class="field"><label class="field-label">概要（一覧表示用）</label><input type="text" name="summary" class="field-control" required></div>
+              <div class="field"><label class="field-label">本文</label><textarea name="body" class="field-control" required></textarea></div>
+              <button type="submit" class="btn btn-primary">保存する</button>
+            </form>
           </div>
-          <div id="admin-user-meta" class="badge badge-accent" style="font-size:0.85rem; padding:6px 12px;"></div>
+        </div>
+        <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>日付</th><th>区分</th><th>タイトル・概要</th><th>状態</th><th>操作</th></tr></thead><tbody id="tbody-admin-news"></tbody></table></div>
+      </section>
+
+      <!-- 2. イベント -->
+      <section class="admin-panel" id="panel-events">
+        <div class="admin-bar">
+          <h2>イベント管理</h2>
+          <button type="button" class="btn btn-primary" data-toggle-drawer="drawer-events" data-default-label="＋ 新規イベントを作成">＋ 新規イベントを作成</button>
+        </div>
+        <div class="admin-drawer" id="drawer-events">
+          <div class="form-section">
+            <form id="form-admin-events">
+              <input type="hidden" name="id">
+              <div class="field"><label class="field-label">イベント名</label><input type="text" name="title" class="field-control" required></div>
+              <div class="field"><label class="field-label">開催日</label><input type="date" name="date" class="field-control" required></div>
+              <div class="field"><label class="field-label">時間</label><input type="text" name="time" class="field-control" placeholder="例：14:20 〜 15:30" required></div>
+              <div class="field"><label class="field-label">開催場所</label><input type="text" name="location" class="field-control" required></div>
+              <div class="field"><label class="field-label">状態</label><select name="status" class="field-control"><option value="upcoming">開催予定</option><option value="past">終了</option></select></div>
+              <div class="field"><label class="field-label">概要</label><textarea name="summary" class="field-control" required></textarea></div>
+              <div class="field"><label class="field-label">参加案内・実施報告</label><input type="text" name="notes" class="field-control"></div>
+              <button type="submit" class="btn btn-primary">保存する</button>
+            </form>
+          </div>
+        </div>
+        <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>日時</th><th>場所</th><th>イベント名</th><th>状態</th><th>操作</th></tr></thead><tbody id="tbody-admin-events"></tbody></table></div>
+      </section>
+
+      <!-- 3. 提案・署名 -->
+      <section class="admin-panel" id="panel-petitions">
+        <div class="admin-bar"><h2>提案・署名管理</h2></div>
+        <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>提案タイトル</th><th>賛同数</th><th>状態</th><th>操作</th></tr></thead><tbody id="tbody-admin-petitions"></tbody></table></div>
+      </section>
+
+      <!-- 4. 意見・質問 -->
+      <section class="admin-panel" id="panel-feedback">
+        <div class="admin-bar"><h2>受信した意見・質問（非公開）</h2></div>
+        <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>受信日時</th><th>区分</th><th>内容・対応メモ</th><th>状態</th><th>操作</th></tr></thead><tbody id="tbody-admin-feedback"></tbody></table></div>
+      </section>
+
+      <!-- 5. 活動の進捗 -->
+      <section class="admin-panel" id="panel-progress">
+        <div class="admin-bar">
+          <h2>活動の進捗管理</h2>
+          <button type="button" class="btn btn-primary" data-toggle-drawer="drawer-progress" data-default-label="＋ 新規進捗案件を追加">＋ 新規進捗案件を追加</button>
+        </div>
+        <div class="admin-drawer" id="drawer-progress">
+          <div class="form-section">
+            <form id="form-admin-progress">
+              <input type="hidden" name="id">
+              <div class="field"><label class="field-label">案件タイトル</label><input type="text" name="title" class="field-control" required></div>
+              <div class="field"><label class="field-label">ステータス</label><select name="status" class="field-control"><option value="in_progress">対応中</option><option value="completed">完了</option><option value="not_realized">実現しなかった</option><option value="not_started">未着手</option></select></div>
+              <div class="field"><label class="field-label">現在の段階（1〜6）</label><select name="currentStage" class="field-control"><option value="1">1：受付</option><option value="2">2：署名募集</option><option value="3">3：生徒会検討</option><option value="4">4：学校提出</option><option value="5">5：学校協議</option><option value="6">6：結果報告</option></select></div>
+              <div class="field"><label class="field-label">概要</label><textarea name="summary" class="field-control" required></textarea></div>
+              <div class="field"><label class="field-label">生徒会からの説明</label><textarea name="explanation" class="field-control"></textarea></div>
+              <div class="field"><label class="field-label">結果・実現しなかった理由・代替策</label><textarea name="outcomeReason" class="field-control"></textarea></div>
+              <button type="submit" class="btn btn-primary">保存する</button>
+            </form>
+          </div>
+        </div>
+        <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>案件タイトル</th><th>現在段階</th><th>状態</th><th>操作</th></tr></thead><tbody id="tbody-admin-progress"></tbody></table></div>
+      </section>
+
+      <!-- 6. 校内ルール承認 -->
+      <section class="admin-panel" id="panel-rules">
+        <div class="admin-bar">
+          <h2>校内のきまり承認・公開管理</h2>
+          <button type="button" class="btn btn-primary" data-toggle-drawer="drawer-rules" data-default-label="＋ ルール案を作成">＋ ルール案を作成</button>
+        </div>
+        <div class="inline-notice">生徒会役員が作成した改定案は「教職員の承認待ち」として保存され、顧問教職員（teacher）または管理者（admin）が承認した規定のみ公開されます。</div>
+        <div class="admin-drawer" id="drawer-rules">
+          <div class="form-section">
+            <form id="form-admin-rules">
+              <input type="hidden" name="id">
+              <div class="field"><label class="field-label">分野</label><select name="category" class="field-control"><option value="服装・身だしなみ">服装・身だしなみ</option><option value="持ち物・情報機器">持ち物・情報機器</option><option value="校内生活・安全">校内生活・安全</option></select></div>
+              <div class="field"><label class="field-label">規定タイトル</label><input type="text" name="title" class="field-control" required></div>
+              <div class="field"><label class="field-label">承認状態</label><select name="status" id="rule-status-select" class="field-control"><option value="pending_approval">教職員の承認待ち</option><option value="approved">承認済・公開</option></select></div>
+              <div class="field"><label class="field-label">概要</label><input type="text" name="summary" class="field-control" required></div>
+              <div class="field"><label class="field-label">条文本文</label><textarea name="body" class="field-control" required></textarea></div>
+              <button type="submit" class="btn btn-primary">保存する</button>
+            </form>
+          </div>
+        </div>
+        <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>分野</th><th>規定タイトル</th><th>承認状態</th><th>操作</th></tr></thead><tbody id="tbody-admin-rules"></tbody></table></div>
+      </section>
+
+      <!-- 7. アカウント・引き継ぎ -->
+      <section class="admin-panel" id="panel-users">
+        <div class="admin-bar">
+          <h2>アカウント権限・年度末役員引き継ぎ</h2>
+          <button type="button" class="btn btn-secondary" id="btn-revoke-all-officers">旧生徒会役員の権限を一括解除</button>
+        </div>
+        <div class="form-section" style="margin-bottom:32px;">
+          <form id="form-admin-users" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;align-items:end;">
+            <div class="field" style="margin:0;"><label class="field-label">氏名</label><input type="text" name="displayName" class="field-control" required></div>
+            <div class="field" style="margin:0;"><label class="field-label">学校メール</label><input type="email" name="email" class="field-control" required></div>
+            <div class="field" style="margin:0;"><label class="field-label">権限ロール</label><select name="role" class="field-control"><option value="student">在校生 (student)</option><option value="officer">生徒会役員 (officer)</option><option value="teacher">顧問教職員 (teacher)</option><option value="admin">管理者 (admin)</option></select></div>
+            <button type="submit" class="btn btn-primary">登録・更新</button>
+          </form>
+        </div>
+        <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>氏名</th><th>メールアドレス</th><th>現在の権限</th><th>更新日</th><th>権限変更</th></tr></thead><tbody id="tbody-admin-users"></tbody></table></div>
+      </section>
+
+      <!-- 8. アクセス時間制限 -->
+      <section class="admin-panel" id="panel-schedule">
+        <div class="admin-bar"><h2>授業時間帯アクセス制限設定</h2></div>
+        <div class="form-section" style="max-width:640px;">
+          <form id="form-admin-schedule">
+            <div class="field"><label class="check-label"><input type="checkbox" name="enabled"><span>授業時間帯の生徒投稿・署名制限を有効にする</span></label></div>
+            <div class="field"><label class="check-label"><input type="checkbox" name="weekdaysOnly"><span>平日（月曜〜金曜）のみ適用する</span></label></div>
+            <div class="field"><label class="field-label">制限開始時刻</label><input type="time" name="restrictedStart" class="field-control"></div>
+            <div class="field"><label class="field-label">制限終了時刻</label><input type="time" name="restrictedEnd" class="field-control"></div>
+            <div class="field"><label class="field-label">昼休み開放開始時刻</label><input type="time" name="lunchBreakStart" class="field-control"></div>
+            <div class="field"><label class="field-label">昼休み開放終了時刻</label><input type="time" name="lunchBreakEnd" class="field-control"></div>
+            <div class="field"><label class="check-label"><input type="checkbox" name="emergencyOverride"><span>行事・緊急対応のため制限を一時解除する</span></label></div>
+            <div class="field"><label class="field-label">一時解除の理由（生徒向け表示）</label><input type="text" name="overrideReason" class="field-control" placeholder="例：生徒総会当日につき終日受付中"></div>
+            <button type="submit" class="btn btn-primary">設定を保存する</button>
+          </form>
         </div>
       </section>
 
-      <div class="container admin-layout">
-        <aside class="admin-sidebar" aria-label="管理メニュー">
-          <div class="admin-sidebar-title">管理メニュー</div>
-          <button type="button" class="admin-tab-btn active" data-tab="panel-news"><span>お知らせ管理</span><span class="admin-count" id="cnt-news">0</span></button>
-          <button type="button" class="admin-tab-btn" data-tab="panel-events"><span>イベント管理</span><span class="admin-count" id="cnt-events">0</span></button>
-          <button type="button" class="admin-tab-btn" data-tab="panel-petitions"><span>提案・署名管理</span><span class="admin-count" id="cnt-petitions">0</span></button>
-          <button type="button" class="admin-tab-btn" data-tab="panel-feedback"><span>意見・質問（未確認）</span><span class="admin-count" id="cnt-feedback">0</span></button>
-          <button type="button" class="admin-tab-btn" data-tab="panel-progress"><span>進捗管理</span><span class="admin-count" id="cnt-progress">0</span></button>
-          <button type="button" class="admin-tab-btn" data-tab="panel-rules"><span>校内ルール承認</span><span class="admin-count" id="cnt-rules">0</span></button>
-          <button type="button" class="admin-tab-btn" data-tab="panel-users"><span>アカウント・引き継ぎ</span></button>
-          <button type="button" class="admin-tab-btn" data-tab="panel-schedule"><span>時間帯アクセス制限</span></button>
-          <button type="button" class="admin-tab-btn" data-tab="panel-logs"><span>操作履歴（監査ログ）</span></button>
-        </aside>
-
-        <div class="admin-main">
-          <!-- 1. お知らせ管理 -->
-          <section class="admin-panel active" id="panel-news">
-            <div class="admin-panel-header">
-              <h2>お知らせ・活動報告の管理</h2>
-            </div>
-            <form id="admin-news-form" class="form-panel" style="margin-bottom:28px;">
-              <input type="hidden" id="admin-news-id">
-              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
-                <div class="form-group">
-                  <label class="form-label" for="admin-news-title">タイトル</label>
-                  <input class="form-control" id="admin-news-title" type="text" required>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="admin-news-cat">カテゴリー</label>
-                  <select class="form-control" id="admin-news-cat">
-                    <option value="お知らせ">お知らせ</option>
-                    <option value="公式発表">公式発表</option>
-                    <option value="活動報告">活動報告</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="admin-news-date">公開日</label>
-                  <input class="form-control" id="admin-news-date" type="date">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="admin-news-status">公開状態</label>
-                  <select class="form-control" id="admin-news-status">
-                    <option value="published">公開する</option>
-                    <option value="draft">下書き保存（非公開）</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="admin-news-body">本文</label>
-                <textarea class="form-control" id="admin-news-body" required></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">記事を保存する</button>
-            </form>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead><tr><th>公開日</th><th>種別</th><th>タイトル</th><th>状態</th><th>操作</th></tr></thead>
-                <tbody id="admin-news-tbody"></tbody>
-              </table>
-            </div>
-          </section>
-
-          <!-- 2. イベント管理 -->
-          <section class="admin-panel" id="panel-events">
-            <div class="admin-panel-header">
-              <h2>イベントの管理</h2>
-            </div>
-            <form id="admin-event-form" class="form-panel" style="margin-bottom:28px;">
-              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
-                <div class="form-group">
-                  <label class="form-label" for="admin-evt-title">イベント名</label>
-                  <input class="form-control" id="admin-evt-title" type="text" required>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="admin-evt-start">開催日時</label>
-                  <input class="form-control" id="admin-evt-start" type="datetime-local" required>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="admin-evt-loc">開催場所・形式</label>
-                  <input class="form-control" id="admin-evt-loc" type="text" placeholder="例：体育館・資料公開">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="admin-evt-status">状態</label>
-                  <select class="form-control" id="admin-evt-status">
-                    <option value="upcoming">開催予定</option>
-                    <option value="ongoing">開催中</option>
-                    <option value="ended">終了（アーカイブ）</option>
-                    <option value="draft">下書き（非公開）</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="admin-evt-desc">イベント概要</label>
-                <textarea class="form-control" id="admin-evt-desc" required></textarea>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="admin-evt-archive">終了後のアーカイブ記録（任意）</label>
-                <input class="form-control" id="admin-evt-archive" type="text">
-              </div>
-              <button type="submit" class="btn btn-primary">イベントを登録する</button>
-            </form>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead><tr><th>開催日時</th><th>イベント名</th><th>状態</th><th>操作</th></tr></thead>
-                <tbody id="admin-events-tbody"></tbody>
-              </table>
-            </div>
-          </section>
-
-          <!-- 3. 提案・署名管理 -->
-          <section class="admin-panel" id="panel-petitions">
-            <div class="admin-panel-header">
-              <h2>提案・署名の管理</h2>
-            </div>
-            <p style="font-size:0.875rem; color:var(--text-secondary); margin-bottom:18px;">※個人情報保護のため、署名した生徒個人の氏名やUIDは管理画面にも表示されません。</p>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead><tr><th>提案タイトル</th><th>署名数 / 目標</th><th>状態</th><th>操作</th></tr></thead>
-                <tbody id="admin-petitions-tbody"></tbody>
-              </table>
-            </div>
-          </section>
-
-          <!-- 4. 意見・質問管理 -->
-          <section class="admin-panel" id="panel-feedback">
-            <div class="admin-panel-header">
-              <h2>受付した意見・質問の管理（非公開）</h2>
-            </div>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead><tr><th>カテゴリー / 日付</th><th>内容</th><th>対応状況</th><th>操作</th></tr></thead>
-                <tbody id="admin-feedback-tbody"></tbody>
-              </table>
-            </div>
-          </section>
-
-          <!-- 5. 進捗管理 -->
-          <section class="admin-panel" id="panel-progress">
-            <div class="admin-panel-header">
-              <h2>活動の進捗管理</h2>
-            </div>
-            <form id="admin-progress-form" class="form-panel" style="margin-bottom:28px;">
-              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
-                <div class="form-group">
-                  <label class="form-label" for="admin-prg-title">案件名</label>
-                  <input class="form-control" id="admin-prg-title" type="text" required>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="admin-prg-stage">現在の段階（1〜6）</label>
-                  <select class="form-control" id="admin-prg-stage">
-                    <option value="1">1. 受付</option>
-                    <option value="2">2. 署名・賛同の募集</option>
-                    <option value="3">3. 生徒会での検討</option>
-                    <option value="4">4. 学校への提出</option>
-                    <option value="5">5. 学校との協議</option>
-                    <option value="6">6. 結果の報告</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="admin-prg-status">対応状況</label>
-                  <select class="form-control" id="admin-prg-status">
-                    <option value="not_started">未着手</option>
-                    <option value="in_progress" selected>対応中</option>
-                    <option value="completed">完了</option>
-                    <option value="not_realized">実現しなかった</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="admin-prg-desc">提案・活動の概要</label>
-                <textarea class="form-control" id="admin-prg-desc" required></textarea>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="admin-prg-exp">生徒会からの説明</label>
-                <input class="form-control" id="admin-prg-exp" type="text">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="admin-prg-reason">結果・理由（実現しなかった場合の理由も記載）</label>
-                <input class="form-control" id="admin-prg-reason" type="text">
-              </div>
-              <button type="submit" class="btn btn-primary">進捗項目を登録する</button>
-            </form>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead><tr><th>案件名</th><th>進行段階</th><th>対応状況</th><th>操作</th></tr></thead>
-                <tbody id="admin-progress-tbody"></tbody>
-              </table>
-            </div>
-          </section>
-
-          <!-- 6. 校内ルール承認管理 -->
-          <section class="admin-panel" id="panel-rules">
-            <div class="admin-panel-header">
-              <h2>校内ルールの更新申請・教職員承認</h2>
-            </div>
-            <div class="alert-box">
-              <strong>承認フローについて：</strong>生徒会役員が作成したルール案は「教職員の承認待ち（非公開）」として登録されます。教職員アカウントでログインし「教職員として承認・公開」を実行するまで、一般ページには公開されません。
-            </div>
-            <form id="admin-rule-form" class="form-panel" style="margin-bottom:28px;">
-              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px;">
-                <div class="form-group">
-                  <label class="form-label" for="admin-rule-cat">区分</label>
-                  <input class="form-control" id="admin-rule-cat" type="text" placeholder="例：登下校・生活時間">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="admin-rule-title">ルールの名称</label>
-                  <input class="form-control" id="admin-rule-title" type="text" required>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="admin-rule-content">ルールの本文</label>
-                <textarea class="form-control" id="admin-rule-content" required></textarea>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="admin-rule-note">補足説明（任意）</label>
-                <input class="form-control" id="admin-rule-note" type="text">
-              </div>
-              <button type="submit" class="btn btn-primary">更新案を作成し教職員へ承認依頼する</button>
-            </form>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead><tr><th>区分</th><th>ルール名称</th><th>承認状態</th><th>操作</th></tr></thead>
-                <tbody id="admin-rules-tbody"></tbody>
-              </table>
-            </div>
-          </section>
-
-          <!-- 7. アカウント・引き継ぎ -->
-          <section class="admin-panel" id="panel-users">
-            <div class="admin-panel-header">
-              <h2>アカウント・権限・役員交代引き継ぎ管理</h2>
-            </div>
-            <div id="admin-users-panel-body"></div>
-          </section>
-
-          <!-- 8. 時間帯アクセス制限 -->
-          <section class="admin-panel" id="panel-schedule">
-            <div class="admin-panel-header">
-              <h2>授業時間帯アクセス制限の設定</h2>
-            </div>
-            <div id="admin-schedule-panel-body"></div>
-          </section>
-
-          <!-- 9. 操作履歴 -->
-          <section class="admin-panel" id="panel-logs">
-            <div class="admin-panel-header">
-              <h2>管理操作履歴（監査ログ）</h2>
-            </div>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead><tr><th>日時</th><th>操作者</th><th>操作内容</th><th>対象種別</th></tr></thead>
-                <tbody id="admin-logs-tbody"></tbody>
-              </table>
-            </div>
-          </section>
-        </div>
-      </div>
+      <!-- 9. 操作履歴 -->
+      <section class="admin-panel" id="panel-logs">
+        <div class="admin-bar"><h2>監査・操作履歴</h2></div>
+        <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>日時</th><th>操作者</th><th>種別</th><th>詳細</th></tr></thead><tbody id="tbody-admin-logs"></tbody></table></div>
+      </section>
     </div>
   </main>
 
   <footer id="site-footer"></footer>
-  <script src="js/firebase-config.js"></script>
-  <script src="js/store.js"></script>
-  <script src="js/site.js"></script>
-  <script src="js/admin.js"></script>
+
+  <script type="module">
+    import { initCommonLayout } from './js/common.js';
+    import { initAdminPage } from './js/admin.js';
+
+    initCommonLayout('admin.html');
+    initAdminPage();
+  </script>
 </body>
 </html>
