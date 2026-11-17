@@ -1,53 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fbfbfd">
-  <meta name="description" content="生徒から出された提案や生徒会活動の進行段階・学校との協議結果を公開します。">
-  <title>活動の進捗 — 橘中学校 生徒会公式プラットフォーム</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活動の進捗 | 橘中学校 生徒会公式プラットフォーム</title>
   <link rel="stylesheet" href="css/site.css">
 </head>
-<body data-page="progress">
+<body>
   <header id="site-header"></header>
 
   <main>
     <div class="container">
-      <nav class="breadcrumb" aria-label="現在位置">
-        <ol>
-          <li><a href="index.html">ホーム</a></li>
-          <li aria-current="page">活動の進捗</li>
-        </ol>
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol><li><a href="index.html">ホーム</a></li><li>活動の進捗</li></ol>
       </nav>
+      <div class="page-header">
+        <span class="eyebrow">声のゆくえ・透明性レポート</span>
+        <h1>活動の進捗</h1>
+        <p class="page-lead">生徒から寄せられた要望や提案が、現在どの段階にあるのかを公開しています。実現しなかった項目についても、理由と代替策を明記します。</p>
+      </div>
     </div>
 
-    <section class="page-header">
+    <section class="band-tight">
       <div class="container">
-        <p class="page-header-eyebrow">活動プロセスの可視化</p>
-        <h1>活動の進捗</h1>
-        <p class="page-header-lead">受付した提案が現在どの段階にあり、学校側とどのような協議を行っているかを公開します。実現しなかった場合も理由を説明します。</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="toolbar">
-          <div class="filter-pills" role="group" aria-label="対応状況絞り込み">
-            <button type="button" class="filter-pill active" data-prg-status="all">すべて</button>
-            <button type="button" class="filter-pill" data-prg-status="in_progress">対応中</button>
-            <button type="button" class="filter-pill" data-prg-status="completed">完了</button>
-            <button type="button" class="filter-pill" data-prg-status="not_realized">実現しなかった</button>
-            <button type="button" class="filter-pill" data-prg-status="not_started">未着手</button>
+        <div class="filter-bar">
+          <div class="tab-list" role="tablist" aria-label="進捗状況絞り込み">
+            <button type="button" class="tab-btn active" data-st="all">すべて</button>
+            <button type="button" class="tab-btn" data-st="in_progress">対応中</button>
+            <button type="button" class="tab-btn" data-st="completed">完了</button>
+            <button type="button" class="tab-btn" data-st="not_realized">実現しなかった</button>
+            <button type="button" class="tab-btn" data-st="not_started">未着手</button>
           </div>
         </div>
 
-        <div id="progress-list-container"></div>
+        <div id="progress-container"></div>
 
-        <div class="related-links">
-          <p class="related-links-title">関連ページ</p>
-          <div class="related-links-grid">
-            <a class="related-link-item" href="petitions.html"><span>新しい提案・署名を見る</span><span>›</span></a>
-            <a class="related-link-item" href="feedback.html"><span>意見・質問を送る</span><span>›</span></a>
+        <div class="next-links">
+          <span class="next-links-label">声を届ける</span>
+          <div class="next-links-items">
+            <a href="petitions.html" class="text-link">提案・署名に参加する →</a>
+            <a href="feedback.html" class="text-link">意見・質問を送る →</a>
           </div>
         </div>
       </div>
@@ -55,9 +47,73 @@
   </main>
 
   <footer id="site-footer"></footer>
-  <script src="js/firebase-config.js"></script>
-  <script src="js/store.js"></script>
-  <script src="js/site.js"></script>
-  <script src="js/pages.js"></script>
+
+  <script type="module">
+    import { initCommonLayout, escapeHtml, statusDot } from './js/common.js';
+    import { store, PROGRESS_STAGES } from './js/store.js';
+
+    initCommonLayout('progress.html');
+
+    let filterStatus = 'all';
+    const container = document.getElementById('progress-container');
+    const stMap = {
+      not_started: { label: '未着手', tone: 'neutral' },
+      in_progress: { label: '対応中', tone: 'accent' },
+      completed: { label: '完了', tone: 'active' },
+      not_realized: { label: '実現しなかった', tone: 'pending' }
+    };
+
+    function render() {
+      let list = store.getState().progress;
+      if (filterStatus !== 'all') list = list.filter(p => p.status === filterStatus);
+
+      if (!list.length) {
+        container.innerHTML = `
+          <div class="empty-notice">
+            <p class="empty-notice-title">該当する進捗案件はありません</p>
+            <p class="empty-notice-desc">生徒会定例会議で受理された案件が登録されるとここに表示されます。</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(p => {
+        const st = stMap[p.status] || { label: p.status, tone: 'neutral' };
+        return `
+          <article class="progress-item">
+            <div class="progress-meta-row">
+              ${statusDot(st.label, st.tone)}
+              <span>最終更新 ${escapeHtml(p.updatedAt)}</span>
+            </div>
+            <h2>${escapeHtml(p.title)}</h2>
+            <p class="editorial-excerpt">${escapeHtml(p.summary)}</p>
+            <div class="stage-track" aria-label="6段階の進捗">
+              ${PROGRESS_STAGES.map(s => {
+                const cls = s.id < p.currentStage ? 'is-done' : (s.id === p.currentStage ? 'is-current' : '');
+                return `<div class="stage-step ${cls}"><span class="stage-num">段階 ${s.id}</span>${s.label}</div>`;
+              }).join('')}
+            </div>
+            ${(p.explanation || p.outcomeReason) ? `
+              <div class="progress-note">
+                ${p.explanation ? `<p><strong>生徒会からの説明：</strong>${escapeHtml(p.explanation)}</p>` : ''}
+                ${p.outcomeReason ? `<p><strong>結果・理由：</strong>${escapeHtml(p.outcomeReason)}</p>` : ''}
+              </div>
+            ` : ''}
+          </article>
+        `;
+      }).join('');
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterStatus = btn.dataset.st;
+        render();
+      });
+    });
+
+    render();
+  </script>
 </body>
 </html>
