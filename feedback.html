@@ -1,62 +1,70 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fbfbfd">
-  <meta name="description" content="生徒から生徒会へ意見・質問・要望を送信する非公開窓口。">
-  <title>意見・質問 — 橘中学校 生徒会公式プラットフォーム</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>意見・質問 | 橘中学校 生徒会公式プラットフォーム</title>
   <link rel="stylesheet" href="css/site.css">
 </head>
-<body data-page="feedback">
+<body>
   <header id="site-header"></header>
 
   <main>
-    <div class="container">
-      <nav class="breadcrumb" aria-label="現在位置">
-        <ol>
-          <li><a href="index.html">ホーム</a></li>
-          <li aria-current="page">意見・質問</li>
-        </ol>
+    <div class="container-narrow">
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <ol><li><a href="index.html">ホーム</a></li><li>意見・質問</li></ol>
       </nav>
+      <div class="page-header">
+        <span class="eyebrow">生徒会公式目安箱</span>
+        <h1>意見・質問を送る</h1>
+        <p class="page-lead">学校生活の悩み、施設への要望、生徒会への質問などを送信できます。寄せられた内容は公開されず、生徒会執行部が責任をもって確認します。</p>
+      </div>
     </div>
 
-    <section class="page-header">
-      <div class="container">
-        <p class="page-header-eyebrow">生徒会への直接窓口</p>
-        <h1>意見・質問</h1>
-        <p class="page-header-lead">日々の学校生活での気づき、校内環境への要望、生徒会への質問をお送りください。送信内容は一般公開されません。</p>
-      </div>
-    </section>
+    <section class="band-tight">
+      <div class="container-narrow">
+        <div id="feedback-gate-notice"></div>
 
-    <section class="section">
-      <div class="container" style="max-width:780px;">
-        <div id="feedback-schedule-banner"></div>
-        <div id="feedback-form-area"></div>
-
-        <div class="editorial-grid-3" style="margin-top:56px;">
-          <div class="editorial-item">
-            <span class="editorial-item-num">段階 01</span>
-            <h3>生徒会が内容を確認</h3>
-            <p>受付した意見や質問を生徒会執行部が確認し、カテゴリーごとに整理します。</p>
-          </div>
-          <div class="editorial-item">
-            <span class="editorial-item-num">段階 02</span>
-            <h3>検討・提案への移行</h3>
-            <p>全校で意見を募るべきテーマは、個人情報を除いた形で「提案・署名」へ移行します。</p>
-          </div>
-          <div class="editorial-item">
-            <span class="editorial-item-num">段階 03</span>
-            <h3>結果と対応の共有</h3>
-            <p>個人が特定されない形で、お知らせや「活動の進捗」を通じて対応状況を報告します。</p>
-          </div>
+        <div class="form-section">
+          <form id="form-feedback">
+            <div class="field">
+              <label class="field-label" for="fb-category">内容の区分<span class="field-req">必須</span></label>
+              <select id="fb-category" name="category" class="field-control" required>
+                <option value="学校生活・校則">学校生活・校則について</option>
+                <option value="施設・環境">施設・安全・環境について</option>
+                <option value="行事・委員会">行事・委員会活動について</option>
+                <option value="生徒会への質問">生徒会への質問・相談</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label" for="fb-message">意見・質問の内容<span class="field-req">必須</span></label>
+              <textarea id="fb-message" name="message" class="field-control" required maxlength="1000" placeholder="具体的な場所・場面や、改善してほしい内容を記入してください。"></textarea>
+              <p class="field-help">個人への誹謗中傷やプライバシー侵害にあたる内容は受理できません。</p>
+            </div>
+            <div class="field">
+              <label class="check-label">
+                <input type="checkbox" name="wantsReply">
+                <span>生徒会からの回答・経過報告を希望する</span>
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary" id="fb-submit-btn">送信する</button>
+          </form>
         </div>
 
-        <div class="related-links">
-          <p class="related-links-title">関連ページ</p>
-          <div class="related-links-grid">
-            <a class="related-link-item" href="petitions.html"><span>公開で提案・署名を行う</span><span>›</span></a>
-            <a class="related-link-item" href="privacy.html"><span>個人情報の取り扱いを見る</span><span>›</span></a>
+        <div id="fb-complete-msg" style="margin-top:24px;"></div>
+
+        <div class="split-3" style="margin-top:56px;">
+          <div class="split-col">
+            <h3>1. 非公開で確認</h3>
+            <p>送信された意見は公開ページには載らず、生徒会執行部と顧問教職員のみが閲覧します。</p>
+          </div>
+          <div class="split-col">
+            <h3>2. 整理と議題化</h3>
+            <p>同様の要望が多い事項は、個人情報を除いたうえで公開提案や協議議題へと整理します。</p>
+          </div>
+          <div class="split-col">
+            <h3>3. 進捗の報告</h3>
+            <p>検討結果や対応状況は「活動の進捗」または「お知らせ」にて全校へ報告します。</p>
           </div>
         </div>
       </div>
@@ -64,9 +72,46 @@
   </main>
 
   <footer id="site-footer"></footer>
-  <script src="js/firebase-config.js"></script>
-  <script src="js/store.js"></script>
-  <script src="js/site.js"></script>
-  <script src="js/pages.js"></script>
+
+  <script type="module">
+    import { initCommonLayout, escapeHtml, showToast } from './js/common.js';
+    import { store } from './js/store.js';
+    import { getCurrentUser } from './js/auth.js';
+    import { evaluateAccessPolicy } from './js/access-control.js';
+
+    initCommonLayout('feedback.html');
+
+    const user = getCurrentUser();
+    const policy = evaluateAccessPolicy(store.getState().accessSchedule, user?.role || 'guest');
+    const gateEl = document.getElementById('feedback-gate-notice');
+    const submitBtn = document.getElementById('fb-submit-btn');
+
+    if (!user) {
+      gateEl.innerHTML = `<div class="inline-notice is-accent">なりすまし防止のため、送信には<a href="login.html" style="color:var(--accent);font-weight:600;text-decoration:underline;">ログイン</a>が必要です。</div>`;
+      submitBtn.disabled = true;
+    } else if (policy.restricted) {
+      gateEl.innerHTML = `<div class="inline-notice is-warning">${escapeHtml(policy.reason)}</div>`;
+      submitBtn.disabled = true;
+    }
+
+    document.getElementById('form-feedback').addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!user || policy.restricted) return;
+      const fd = new FormData(e.target);
+      store.submitFeedback({
+        category: fd.get('category'),
+        message: fd.get('message'),
+        wantsReply: fd.get('wantsReply') === 'on'
+      }, user);
+      e.target.reset();
+      showToast('意見・質問を送信しました。');
+      document.getElementById('fb-complete-msg').innerHTML = `
+        <div class="inline-notice is-success">
+          <strong>送信を受け付けました。</strong><br>
+          生徒会執行部にて内容を確認のうえ、今後の定例会議で検討いたします。
+        </div>
+      `;
+    });
+  </script>
 </body>
 </html>
