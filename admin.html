@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>管理画面 | 橘中学校 生徒会</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="site-brand" href="index.html">
+      <span class="brand-mark">橘</span>
+      <span>橘中学校 <span class="brand-sub">生徒会</span></span>
+    </a>
+    <nav class="main-nav" aria-label="主要メニュー">
+      <ul>
+        <li><a href="index.html">トップ</a></li>
+        <li><a href="newsroom.html">お知らせ</a></li>
+        <li><a href="events.html">イベント</a></li>
+        <li><a href="progress.html">活動の進捗</a></li>
+        <li><a href="petitions.html">提案・署名</a></li>
+        <li><a href="feedback.html">意見・質問</a></li>
+        <li><a href="school-rules.html">校内のきまり</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <div id="navAuthSlot"><a class="nav-action-btn" href="login.html">ログイン</a></div>
+      <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobileDrawer">メニュー</button>
+    </div>
+  </div>
+</header>
+<nav id="mobileDrawer" class="mobile-drawer" aria-label="スマートフォンメニュー">
+  <ul>
+    <li><a href="index.html">トップ</a></li>
+    <li><a href="newsroom.html">お知らせ</a></li>
+    <li><a href="events.html">イベント</a></li>
+    <li><a href="progress.html">活動の進捗</a></li>
+    <li><a href="petitions.html">提案・署名</a></li>
+    <li><a href="feedback.html">意見・質問</a></li>
+    <li><a href="school-rules.html">校内のきまり</a></li>
+  </ul>
+  <div id="mobileAuthSlot" class="mobile-drawer-actions">
+    <a class="nav-action-btn" href="login.html">ログイン</a>
+  </div>
+</nav>
+<main>
+  <nav class="breadcrumb" aria-label="現在位置">
+  <div class="container">
+    <ol>
+      <li><a href="index.html">トップ</a></li>
+      <li aria-current="page">管理画面</li>
+    </ol>
+  </div>
+</nav>
+  <section class="page-header">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;">
+      <div>
+        <span class="page-category-tag">役員・教職員専用</span>
+        <h1>運営管理画面</h1>
+        <p class="page-lead">お知らせ、イベント、提案・署名、意見・質問、活動の進捗、校内ルールの承認・公開を管理します。</p>
+      </div>
+      <div id="adminUserBadge" class="badge badge-accent" style="font-size:0.85rem;padding:6px 14px;">権限確認中...</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <!-- 権限不足・未ログイン時の遮断表示 -->
+      <div id="adminDeniedBox" class="empty-state" style="display:none;">
+        <h3>管理画面へのアクセス権限がありません</h3>
+        <p>この画面は生徒会役員・教職員・システム管理者専用です。一般生徒アカウントおよび未ログイン状態では操作できません。</p>
+        <div style="margin-top:16px;"><a href="login.html" class="btn btn-primary btn-sm">ログインページへ移動</a></div>
+      </div>
+
+      <!-- 管理者用ワークスペース -->
+      <div id="adminWorkspace" style="display:none;">
+        <div class="filter-tabs" id="adminTabs" style="margin-bottom:24px;">
+          <button class="filter-tab active" data-tab="news">お知らせ管理</button>
+          <button class="filter-tab" data-tab="events">イベント管理</button>
+          <button class="filter-tab" data-tab="petitions">提案・署名管理</button>
+          <button class="filter-tab" data-tab="feedback">意見・質問管理</button>
+          <button class="filter-tab" data-tab="progress">進捗管理</button>
+          <button class="filter-tab" data-tab="rules">校内ルール承認・管理</button>
+          <button class="filter-tab" data-tab="users" id="tabUsersBtn" style="display:none;">アカウント・権限管理</button>
+        </div>
+
+        <div id="adminPanelContent"></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <strong>橘中学校 生徒会公式プラットフォーム</strong>
+        <p style="margin:6px 0 0;font-size:0.8rem;">声を、集めるだけで終わらせない。</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">トップ</a>
+        <a href="newsroom.html">お知らせ</a>
+        <a href="events.html">イベント</a>
+        <a href="progress.html">活動の進捗</a>
+        <a href="petitions.html">提案・署名</a>
+        <a href="feedback.html">意見・質問</a>
+        <a href="school-rules.html">校内のきまり</a>
+        <a href="privacy.html">プライバシー・利用上の注意</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>掲載内容および各機能の運用は、学校の確認・承認を経て決定します。</span>
+      <span>© 橘中学校 生徒会</span>
+    </div>
+  </div>
+</footer>
+<script type="module" src="site.js"></script>
+<script type="module">
+  import { Backend, STAGE_LABELS, formatDate } from "./js/firebase-service.js";
+  import { escapeHtml } from "./site.js";
+
+  let currentUser = null;
+  let currentRole = null;
+  let activeTab = "news";
+
+  function canApproveRules() {
+    return ["teacher", "admin"].includes(currentRole);
+  }
+
+  function canManageUsers() {
+    return ["teacher", "admin"].includes(currentRole);
+  }
+
+  document.addEventListener("tachibana:auth", (e) => {
+    const { user, profile } = e.detail;
+    const role = profile?.role || "student";
+    const allowed = user && ["officer", "teacher", "admin"].includes(role);
+
+    if (!allowed) {
+      document.getElementById("adminDeniedBox").style.display = "block";
+      document.getElementById("adminWorkspace").style.display = "none";
+      document.getElementById("adminUserBadge").textContent = "アクセス制限中";
+      return;
+    }
+
+    currentUser = user;
+    currentRole = role;
+    document.getElementById("adminDeniedBox").style.display = "none";
+    document.getElementById("adminWorkspace").style.display = "block";
+    document.getElementById("adminUserBadge").textContent = `ログイン中: ${profile?.displayName || "管理者"}（${role}）`;
+
+    if (canManageUsers()) {
+      document.getElementById("tabUsersBtn").style.display = "inline-block";
+    }
+    loadAdminTab(activeTab);
+  });
+
+  document.querySelectorAll("#adminTabs .filter-tab").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#adminTabs .filter-tab").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeTab = btn.getAttribute("data-tab");
+      loadAdminTab(activeTab);
+    });
+  });
+
+  async function loadAdminTab(tab) {
+    const panel = document.getElementById("adminPanelContent");
+    panel.innerHTML = `<div class="loading-state">データを読み込んでいます...</div>`;
+
+    if (tab === "news") {
+      const list = await Backend.adminGetAll("news", "updatedAt");
+      panel.innerHTML = `
+        <div class="form-card" style="margin-bottom:24px;">
+          <h3 style="margin:0 0 14px;">お知らせ新規作成・編集</h3>
+          <form id="adminNewsForm">
+            <input type="hidden" id="newsDocId">
+            <div class="form-group"><label>タイトル</label><input type="text" id="newsTitle" class="form-control" required></div>
+            <div class="form-group"><label>カテゴリー</label>
+              <select id="newsCat" class="form-control"><option value="お知らせ">お知らせ</option><option value="活動報告">活動報告</option><option value="公式発表">公式発表</option></select>
+            </div>
+            <div class="form-group"><label>本文</label><textarea id="newsBody" class="form-control" rows="4" required></textarea></div>
+            <div class="form-group"><label>公開状態</label>
+              <select id="newsStatus" class="form-control"><option value="draft">下書き（非公開）</option><option value="published">公開中</option></select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">保存する</button>
+          </form>
+        </div>
+        <div class="card-grid-2">${list.map((n) => `
+          <div class="card">
+            <div class="card-meta"><span class="badge ${n.status === "published" ? "badge-success" : ""}">${n.status === "published" ? "公開中" : "下書き"}</span><span>${escapeHtml(n.category)}</span></div>
+            <h4>${escapeHtml(n.title)}</h4>
+            <p>${escapeHtml((n.body || "").slice(0, 80))}</p>
+            <div class="card-footer" style="display:flex;gap:8px;">
+              <button class="btn btn-danger btn-sm" data-del-news="${n.id}">削除</button>
+            </div>
+          </div>
+        `).join("") || "<p>登録された記事はありません。</p>"}</div>
+      `;
+      document.getElementById("adminNewsForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const status = document.getElementById("newsStatus").value;
+        await Backend.adminSaveDoc("news", document.getElementById("newsDocId").value || null, {
+          title: document.getElementById("newsTitle").value,
+          category: document.getElementById("newsCat").value,
+          body: document.getElementById("newsBody").value,
+          status,
+          publishedAt: status === "published" ? new Date() : null,
+          authorUid: currentUser.uid
+        }, currentUser.uid);
+        loadAdminTab("news");
+      });
+      panel.querySelectorAll("[data-del-news]").forEach((b) => b.addEventListener("click", async () => {
+        if (!confirm("この記事を削除しますか？")) return;
+        await Backend.adminDeleteDoc("news", b.getAttribute("data-del-news"), currentUser.uid);
+        loadAdminTab("news");
+      }));
+    }
+
+    if (tab === "feedback") {
+      const list = await Backend.adminGetAll("feedback", "createdAt");
+      panel.innerHTML = `<div style="display:flex;flex-direction:column;gap:14px;">${list.map((f) => `
+        <div class="card">
+          <div class="card-meta">
+            <span class="badge badge-accent">${escapeHtml(f.category)}</span>
+            <span class="badge ${f.status === "resolved" ? "badge-success" : "badge-warning"}">${f.status === "resolved" ? "対応済み" : "未対応・確認中"}</span>
+            <span>受付日: ${formatDate(f.createdAt)}</span>
+          </div>
+          <p style="white-space:pre-wrap;color:var(--text-primary);">${escapeHtml(f.content)}</p>
+          <div class="card-footer">
+            <button class="btn btn-secondary btn-sm" data-toggle-fb="${f.id}" data-cur="${f.status}">
+              ${f.status === "resolved" ? "未対応に戻す" : "対応済みにする"}
+            </button>
+          </div>
+        </div>
+      `).join("") || "<p>受付した意見・質問はありません。</p>"}</div>`;
+      panel.querySelectorAll("[data-toggle-fb]").forEach((b) => b.addEventListener("click", async () => {
+        const next = b.getAttribute("data-cur") === "resolved" ? "unreviewed" : "resolved";
+        await Backend.adminSaveDoc("feedback", b.getAttribute("data-toggle-fb"), { status: next }, currentUser.uid);
+        loadAdminTab("feedback");
+      }));
+    }
+
+    if (tab === "rules") {
+      const list = await Backend.adminGetAll("schoolRules", "updatedAt");
+      panel.innerHTML = `
+        <div class="notice-banner">
+          <strong>承認権限ルール：</strong>生徒会役員は「承認依頼（下書き）」の作成のみ可能です。公式ページへの公開（承認済みへの変更）は<strong>教職員またはシステム管理者</strong>のみ実行できます。
+        </div>
+        <div class="form-card" style="margin-bottom:24px;">
+          <h3 style="margin:0 0 14px;">校内ルール案の作成・承認依頼</h3>
+          <form id="adminRuleForm">
+            <div class="form-group"><label>ルール名称</label><input type="text" id="ruleTitle" class="form-control" required></div>
+            <div class="form-group"><label>ルール本文</label><textarea id="ruleContent" class="form-control" rows="4" required></textarea></div>
+            <button type="submit" class="btn btn-primary btn-sm">教職員への承認依頼として保存</button>
+          </form>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;">${list.map((r) => `
+          <div class="card">
+            <div class="card-meta">
+              <span class="badge ${r.status === "approved" ? "badge-success" : "badge-warning"}">${r.status === "approved" ? "教職員承認済み（公開中）" : "承認待ち（非公開）"}</span>
+            </div>
+            <h4>${escapeHtml(r.title)}</h4>
+            <p style="white-space:pre-wrap;">${escapeHtml(r.content)}</p>
+            <div class="card-footer" style="display:flex;gap:8px;">
+              ${canApproveRules() && r.status !== "approved" ? `<button class="btn btn-primary btn-sm" data-approve-rule="${r.id}">教職員として承認・公開する</button>` : ""}
+            </div>
+          </div>
+        `).join("") || "<p>登録された校内ルールはありません。</p>"}</div>
+      `;
+      document.getElementById("adminRuleForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await Backend.adminSaveDoc("schoolRules", null, {
+          title: document.getElementById("ruleTitle").value,
+          content: document.getElementById("ruleContent").value,
+          status: "pending_approval"
+        }, currentUser.uid);
+        loadAdminTab("rules");
+      });
+      panel.querySelectorAll("[data-approve-rule]").forEach((b) => b.addEventListener("click", async () => {
+        if (!confirm("この校内ルールを正式承認し、一般公開しますか？")) return;
+        await Backend.adminSaveDoc("schoolRules", b.getAttribute("data-approve-rule"), {
+          status: "approved",
+          approvedBy: currentUser.uid,
+          approvedAt: new Date()
+        }, currentUser.uid);
+        loadAdminTab("rules");
+      }));
+    }
+
+    if (tab === "petitions" || tab === "progress" || tab === "events" || tab === "users") {
+      const colMap = { petitions: "petitions", progress: "progress", events: "events", users: "users" };
+      const items = await Backend.adminGetAll(colMap[tab], "updatedAt");
+      panel.innerHTML = `<div class="card-grid-2">${items.map((it) => `
+        <div class="card">
+          <div class="card-meta"><span class="badge">${escapeHtml(it.status || it.role || "登録済み")}</span></div>
+          <h4>${escapeHtml(it.title || it.displayName || it.id)}</h4>
+          <p>${escapeHtml((it.description || it.explanation || "").slice(0, 90))}</p>
+          ${tab === "petitions" ? `
+            <div class="card-footer">
+              <button class="btn btn-secondary btn-sm" data-pub-pet="${it.id}" data-cur="${it.published}">
+                ${it.published ? "非公開にする" : "公開する"}
+              </button>
+            </div>
+          ` : ""}
+        </div>
+      `).join("") || "<p>データはまだ登録されていません。</p>"}</div>`;
+
+      panel.querySelectorAll("[data-pub-pet]").forEach((b) => b.addEventListener("click", async () => {
+        const nextPub = b.getAttribute("data-cur") !== "true";
+        await Backend.adminSaveDoc("petitions", b.getAttribute("data-pub-pet"), { published: nextPub }, currentUser.uid);
+        loadAdminTab("petitions");
+      }));
+    }
+  }
+</script>
+</body>
+</html>
