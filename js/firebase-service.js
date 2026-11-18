@@ -28,7 +28,7 @@ let app = null;
 let auth = null;
 let db = null;
 
-if (isFirebaseConfigured) {
+if (isFirebaseConfigured()) {
   app = initializeApp(firebaseConfig);
   auth = getAuth(app);
   db = getFirestore(app);
@@ -61,7 +61,7 @@ export function formatDateTime(ts) {
 
 export const Backend = {
   isReady() {
-    return isFirebaseConfigured && Boolean(db);
+    return isFirebaseConfigured() && Boolean(db);
   },
 
   // 認証状態の監視（usersコレクションから権限・有効状態を取得）

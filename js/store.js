@@ -571,3 +571,56 @@
     }
   };
 })();
+
+// ES Modules向けの公開API。旧来のwindow.TachibanaStoreとの互換性を保つ。
+const legacyStore = window.TachibanaStore;
+export const PROGRESS_STAGES = legacyStore.PROGRESS_STAGES.map(stage => ({
+  ...stage,
+  label: stage.name
+}));
+
+export const store = {
+  ...legacyStore,
+  getState() {
+    const state = legacyStore.loadState();
+    // 旧画面が参照する名前も読み取り専用の互換プロパティとして提供する。
+    return { ...state, accessSchedule: state.accessControl };
+  },
+  getPublishedNews() {
+    return legacyStore.getPublicNews().map(item => ({
+      ...item,
+      summary: item.summary || item.body || ''
+    }));
+  },
+  getApprovedRules() {
+    return legacyStore.getApprovedSchoolRules().map(item => ({
+      ...item,
+      body: item.content || item.body || '',
+      summary: item.summary || item.note || ''
+    }));
+  },
+  isDemoMode() {
+    return Boolean(legacyStore.loadState().isDemoMode);
+  },
+  hasUserSigned(petitionId, userUid) {
+    return legacyStore.loadState().signatures.some(signature =>
+      signature.petitionId === petitionId && signature.userUid === userUid
+    );
+  },
+  createPetition(data = {}) {
+    return legacyStore.createPetition({
+      title: data.title,
+      category: data.category,
+      description: data.description ?? data.summary ?? '',
+      targetCount: data.targetCount ?? data.goal ?? 30,
+      showProposerName: data.showProposerName ?? data.showName ?? false
+    });
+  },
+  submitFeedback(data = {}) {
+    return legacyStore.submitFeedback({
+      category: data.category,
+      content: data.content ?? data.message ?? '',
+      wantsReply: data.wantsReply
+    });
+  }
+};

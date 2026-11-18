@@ -2,6 +2,8 @@ import { getCurrentUser, isStaffRole, logoutUser, ROLE_LABELS } from './auth.js'
 import { store } from './store.js';
 import { evaluateAccessPolicy } from './access-control.js';
 
+window.TachibanaUI = { escapeHtml, showToast };
+
 const NAV_ITEMS = [
   { href: 'index.html', label: 'ホーム' },
   { href: 'newsroom.html', label: 'お知らせ' },

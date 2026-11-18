@@ -3,11 +3,10 @@
  * 仕様書 第5章・第6章・第7章・第8章・第10章・第13章 準拠
  */
 
-(function () {
   const { escapeHtml, showToast } = window.TachibanaUI;
   const Store = window.TachibanaStore;
 
-  function initAdminPage() {
+export function initAdminPage() {
     const guardEl = document.getElementById("admin-access-guard");
     const appEl = document.getElementById("admin-app");
     if (!guardEl || !appEl) return;
@@ -759,5 +758,3 @@
     refreshAll();
   }
 
-  document.addEventListener("DOMContentLoaded", initAdminPage);
-})();
