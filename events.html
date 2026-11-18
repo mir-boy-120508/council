@@ -49,19 +49,19 @@
     initCommonLayout('events.html');
 
     const events = store.getState().events;
-    const upcoming = events.filter(e => e.status === 'upcoming');
-    const past = events.filter(e => e.status !== 'upcoming');
+    const upcoming = events.filter(e => ['upcoming', 'ongoing'].includes(e.status));
+    const past = events.filter(e => !['upcoming', 'ongoing', 'draft'].includes(e.status));
 
     document.getElementById('upcoming-events').innerHTML = upcoming.length ? upcoming.map(ev => `
       <article class="event-feature">
         <div class="progress-meta-row">
           ${statusDot('開催予定', 'accent')}
-          <span>${escapeHtml(ev.date)}　${escapeHtml(ev.time)}</span>
+          <span>${escapeHtml(ev.startAt ? new Date(ev.startAt).toLocaleString('ja-JP') : ev.date || '')}</span>
           <span>会場：${escapeHtml(ev.location)}</span>
         </div>
         <h3 style="font-size:1.375rem;margin:0 0 10px;">${escapeHtml(ev.title)}</h3>
-        <p class="editorial-excerpt">${escapeHtml(ev.summary)}</p>
-        ${ev.notes ? `<p style="font-size:0.875rem;color:var(--text-secondary);margin:14px 0 0;">参加案内：${escapeHtml(ev.notes)}</p>` : ''}
+        <p class="editorial-excerpt">${escapeHtml(ev.description || ev.summary || '')}</p>
+        ${(ev.archiveNote || ev.notes) ? `<p style="font-size:0.875rem;color:var(--text-secondary);margin:14px 0 0;">参加案内：${escapeHtml(ev.archiveNote || ev.notes)}</p>` : ''}
       </article>
     `).join('') : `
       <div class="empty-notice">
@@ -75,13 +75,13 @@
         ${past.map(ev => `
           <article class="editorial-row">
             <div class="editorial-meta">
-              <span>${escapeHtml(ev.date)}</span>
+              <span>${escapeHtml(ev.startAt ? new Date(ev.startAt).toLocaleDateString('ja-JP') : ev.date || '')}</span>
               <span>${escapeHtml(ev.location)}</span>
             </div>
             <div>
               <h3 class="editorial-title">${escapeHtml(ev.title)}</h3>
-              <p class="editorial-excerpt">${escapeHtml(ev.summary)}</p>
-              ${ev.notes ? `<p style="font-size:0.875rem;color:var(--text-secondary);margin:8px 0 0;">実施報告：${escapeHtml(ev.notes)}</p>` : ''}
+              <p class="editorial-excerpt">${escapeHtml(ev.description || ev.summary || '')}</p>
+              ${(ev.archiveNote || ev.notes) ? `<p style="font-size:0.875rem;color:var(--text-secondary);margin:8px 0 0;">実施報告：${escapeHtml(ev.archiveNote || ev.notes)}</p>` : ''}
             </div>
             <span></span>
           </article>

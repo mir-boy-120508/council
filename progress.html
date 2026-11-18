@@ -86,17 +86,17 @@
               <span>最終更新 ${escapeHtml(p.updatedAt)}</span>
             </div>
             <h2>${escapeHtml(p.title)}</h2>
-            <p class="editorial-excerpt">${escapeHtml(p.summary)}</p>
+            <p class="editorial-excerpt">${escapeHtml(p.description || p.summary || '')}</p>
             <div class="stage-track" aria-label="6段階の進捗">
               ${PROGRESS_STAGES.map(s => {
                 const cls = s.id < p.currentStage ? 'is-done' : (s.id === p.currentStage ? 'is-current' : '');
-                return `<div class="stage-step ${cls}"><span class="stage-num">段階 ${s.id}</span>${s.label}</div>`;
+                return `<div class="stage-step ${cls}"><span class="stage-num">段階 ${s.id}</span>${s.name}</div>`;
               }).join('')}
             </div>
-            ${(p.explanation || p.outcomeReason) ? `
+            ${(p.explanation || (p.resultReason || p.outcomeReason)) ? `
               <div class="progress-note">
                 ${p.explanation ? `<p><strong>生徒会からの説明：</strong>${escapeHtml(p.explanation)}</p>` : ''}
-                ${p.outcomeReason ? `<p><strong>結果・理由：</strong>${escapeHtml(p.outcomeReason)}</p>` : ''}
+                ${(p.resultReason || p.outcomeReason) ? `<p><strong>結果・理由：</strong>${escapeHtml((p.resultReason || p.outcomeReason))}</p>` : ''}
               </div>
             ` : ''}
           </article>

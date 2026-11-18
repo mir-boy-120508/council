@@ -72,7 +72,7 @@
       const q = (searchInput.value || '').trim().toLowerCase();
       let list = store.getPublishedNews();
       if (currentCategory !== 'all') list = list.filter(n => n.category === currentCategory);
-      if (q) list = list.filter(n => n.title.toLowerCase().includes(q) || n.summary.toLowerCase().includes(q));
+      if (q) list = list.filter(n => n.title.toLowerCase().includes(q) || (n.summary || n.body || '').toLowerCase().includes(q));
 
       if (!list.length) {
         container.innerHTML = `

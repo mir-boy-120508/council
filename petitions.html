@@ -78,7 +78,7 @@
     initCommonLayout('petitions.html');
 
     const user = getCurrentUser();
-    const policy = evaluateAccessPolicy(store.getState().accessSchedule, user?.role || 'guest');
+    const policy = evaluateAccessPolicy(store.getState().accessControl, user?.role || 'guest');
     const noticeEl = document.getElementById('access-notice');
     const drawer = document.getElementById('petition-create-drawer');
     const toggleBtn = document.getElementById('toggle-petition-form');
@@ -104,8 +104,8 @@
       store.createPetition({
         title: fd.get('title'),
         category: fd.get('category'),
-        summary: fd.get('summary'),
-        showName: fd.get('showName') === 'on'
+        description: fd.get('summary'),
+        showProposerName: fd.get('showName') === 'on'
       }, user);
       e.target.reset();
       drawer.style.display = 'none';
@@ -118,6 +118,8 @@
       const list = store.getState().petitions;
       const container = document.getElementById('petitions-list');
       const stMap = {
+        open: { label: '署名受付中', tone: 'accent' },
+        threshold_reached: { label: '目標到達・検討中', tone: 'active' },
         active: { label: '署名受付中', tone: 'accent' },
         reviewing: { label: '生徒会検討中', tone: 'pending' },
         adopted: { label: '議題採用済', tone: 'active' },
@@ -136,9 +138,10 @@
 
       container.innerHTML = list.map(p => {
         const st = stMap[p.status] || { label: p.status, tone: 'neutral' };
-        const pct = Math.min(100, Math.round((p.signatureCount / p.goal) * 100));
+        const goal = Number(p.targetCount || p.goal || 30);
+        const pct = Math.min(100, Math.round((p.signatureCount / goal) * 100));
         const signed = user ? store.hasUserSigned(p.id, user.uid) : false;
-        const canSign = user && !policy.restricted && p.status === 'active' && !signed;
+        const canSign = user && !policy.restricted && (p.status === 'open' || p.status === 'active') && !signed;
 
         return `
           <article class="progress-item">
@@ -146,25 +149,25 @@
               ${statusDot(st.label, st.tone)}
               <span>${escapeHtml(p.category)}</span>
               <span>投稿日 ${escapeHtml(p.createdAt)}</span>
-              <span>提案者：${escapeHtml(p.proposerDisplay)}</span>
+              <span>提案者：${escapeHtml(p.showProposerName ? (store.getState().users.find(u => u.uid === p.proposerUid)?.displayName || '在校生') : '在校生（氏名非公開）')}</span>
             </div>
             <h3 style="font-size:1.3125rem;">${escapeHtml(p.title)}</h3>
-            <p class="editorial-excerpt">${escapeHtml(p.summary)}</p>
+            <p class="editorial-excerpt">${escapeHtml((p.description || p.summary || '') )}</p>
 
             <div class="meter-block">
               <div class="meter-labels">
                 <span>現在の賛同数：<strong>${p.signatureCount}名</strong></span>
-                <span>目標基準：${p.goal}名（${pct}%）</span>
+                <span>目標基準：${goal}名（${pct}%）</span>
               </div>
               <div class="meter-track"><div class="meter-fill" style="width:${pct}%"></div></div>
             </div>
 
-            ${p.councilNote ? `<div class="progress-note" style="margin-bottom:20px;"><p><strong>生徒会コメント：</strong>${escapeHtml(p.councilNote)}</p></div>` : ''}
+            ${p.councilResponse ? `<div class="progress-note" style="margin-bottom:20px;"><p><strong>生徒会コメント：</strong>${escapeHtml(p.councilResponse)}</p></div>` : ''}
 
             <div>
               ${signed
                 ? `<button type="button" class="btn btn-secondary" disabled>賛同署名済み</button>`
-                : p.status === 'active'
+                : (p.status === 'open' || p.status === 'active')
                   ? `<button type="button" class="btn btn-primary" data-sign-id="${p.id}" ${!canSign ? 'disabled' : ''}>この提案に賛同署名する</button>`
                   : `<span style="font-size:0.875rem;color:var(--text-secondary);">署名受付は終了し、生徒会での検討・協議段階へ進んでいます。</span>`
               }

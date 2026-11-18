@@ -32,7 +32,7 @@
               <input type="text" id="login-name" name="displayName" class="field-control" required placeholder="例：橘 太郎（2年1組）">
             </div>
             <div class="field">
-              <label class="field-label" for="login-email">学校メールアドレス<span class="field-req">必須</span></label>
+              <label class="field-label" for="login-email">学校メールアドレス（検証画面では未使用）<span class="field-req">必須</span></label>
               <input type="email" id="login-email" name="email" class="field-control" required placeholder="例：student.201@tachibana-jhs.ed.jp">
             </div>
             <div class="field">
@@ -43,7 +43,7 @@
                 <option value="teacher">顧問教職員（teacher）</option>
                 <option value="admin">システム管理者（admin）</option>
               </select>
-              <p class="field-help">Firebase Auth 本番接続時は、Firestore の権限ロールが自動的に適用されます。</p>
+              <p class="field-help">現在はローカル検証モードです。ここでのロール選択は画面確認専用で、本番認証ではありません。</p>
             </div>
             <button type="submit" class="btn btn-primary" style="width:100%;">ログインする</button>
           </form>
@@ -66,14 +66,11 @@
   <script type="module">
     import { initCommonLayout, showToast } from './js/common.js';
     import { loginLocalAccount, isStaffRole } from './js/auth.js';
-    import { isFirebaseConfigured } from './js/firebase-config.js';
     import { store } from './js/store.js';
 
     initCommonLayout('login.html');
 
-    document.getElementById('auth-mode-notice').innerHTML = isFirebaseConfigured()
-      ? `<div class="inline-notice is-success">本番 Firebase 認証モードで動作しています。</div>`
-      : `<div class="inline-notice">現在 <code>js/firebase-config.js</code> が未設定のため、ローカル検証モードで動作しています。</div>`;
+    document.getElementById('auth-mode-notice').innerHTML = `<div class="inline-notice">現在はブラウザ内のローカル検証モードです。ここでのログインは画面確認専用で、本番用の本人確認・認証には使用できません。</div>`;
 
     document.getElementById('form-login').addEventListener('submit', (e) => {
       e.preventDefault();

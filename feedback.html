@@ -82,7 +82,7 @@
     initCommonLayout('feedback.html');
 
     const user = getCurrentUser();
-    const policy = evaluateAccessPolicy(store.getState().accessSchedule, user?.role || 'guest');
+    const policy = evaluateAccessPolicy(store.getState().accessControl, user?.role || 'guest');
     const gateEl = document.getElementById('feedback-gate-notice');
     const submitBtn = document.getElementById('fb-submit-btn');
 
@@ -100,7 +100,7 @@
       const fd = new FormData(e.target);
       store.submitFeedback({
         category: fd.get('category'),
-        message: fd.get('message'),
+        content: fd.get('message'),
         wantsReply: fd.get('wantsReply') === 'on'
       }, user);
       e.target.reset();
